@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.Calculator", "BUKEP.Student.Calculator\BUKEP.Student.Calculator.csproj", "{ACC78234-A61E-4D2F-9F99-227DF3171BAF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ACC78234-A61E-4D2F-9F99-227DF3171BAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC78234-A61E-4D2F-9F99-227DF3171BAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC78234-A61E-4D2F-9F99-227DF3171BAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC78234-A61E-4D2F-9F99-227DF3171BAF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6F97DBD6-2CAB-4F10-B272-23B2DD87CB94}
+	EndGlobalSection
+EndGlobal

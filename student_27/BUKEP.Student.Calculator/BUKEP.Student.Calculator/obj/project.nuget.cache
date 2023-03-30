@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "B3YAz2OVmqqALOjx9rkEB6vWj9ttr3V/ZYUiXGtwt5AuFYfBXoFNv0uPXN+jaXJ6e8ACs45pyWScuODyvE2Wgw==",
+  "success": true,
+  "projectFilePath": "D:\\Git\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\clg200027\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.24\\microsoft.netcore.app.host.win-x64.3.1.24.nupkg.sha512"
+  ],
+  "logs": []
+}
