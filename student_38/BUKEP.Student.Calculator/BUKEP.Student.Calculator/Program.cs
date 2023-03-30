@@ -13,10 +13,16 @@ namespace BUKEP.Student.Calculator
             Console.WriteLine("Введите математическое выражение (цифры и знаки указать через пробел)");
             var data = Console.ReadLine().Split(' ');
             var elem = new List<object>();
-            foreach (var elems in data) elem.Add(elems);
+            for (int v = 0; v < data.Length; v++)
+            {
+                if (data[v] != "")
+                {
+                    elem.Add(data[v]);
+                }
+            }
             for (int i = 0; i < elem.Count; i++)
             {
-                switch (data[i])
+                switch (elem[i])
                 {
                     case "+":
                         var number1 = Convert.ToDouble(elem[elem.IndexOf("+") - 1]);
@@ -56,9 +62,6 @@ namespace BUKEP.Student.Calculator
                         {
                             Console.WriteLine("На ноль делить нельзя!");
                         }
-                        break;
-                    default:
-                        Console.WriteLine("Операция не распознана");
                         break;
                 }
             }

@@ -5,3 +5,11 @@ C:\Users\clg200038\practice_bukep\students_38\BUKEP.Student.Calculator\BUKEP.Stu
 C:\Users\clg200038\practice_bukep\students_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
 C:\Users\clg200038\practice_bukep\students_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.exe
 C:\Users\clg200038\practice_bukep\students_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.pdb
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe.config
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.pdb
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.AssemblyReference.cache
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.SuggestedBindingRedirects.cache
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.exe
+E:\lab2\practice_bukep\student_38\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.pdb
