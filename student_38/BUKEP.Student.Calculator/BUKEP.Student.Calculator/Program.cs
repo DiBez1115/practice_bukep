@@ -20,6 +20,7 @@ namespace BUKEP.Student.Calculator
                     elem.Add(data[v]);
                 }
             }
+            bool operatorFound = false;
             for (int i = 0; i < elem.Count; i++)
             {
                 switch (elem[i])
@@ -31,6 +32,7 @@ namespace BUKEP.Student.Calculator
                         elem.Add("= " + Sum);
                         for (int b = 0; b < elem.Count; b++)
                             Console.Write(elem[b] + " ");
+
                         break;
                     case "-":
                         var number3 = Convert.ToDouble(elem[elem.IndexOf("-") - 1]);
@@ -61,9 +63,14 @@ namespace BUKEP.Student.Calculator
                         else
                         {
                             Console.WriteLine("На ноль делить нельзя!");
+                            return;
                         }
                         break;
                 }
+            }
+            if(!operatorFound)
+            {
+                Console.WriteLine("Невернная форма ввода!");
             }
 
         }
