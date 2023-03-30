@@ -10,8 +10,12 @@ namespace BUKEP.Student.Calculator
         Console.WriteLine("Введите выражение состоящие из двух значений, между значениями должен быть пробел");
         var InpuеData = Console.ReadLine().Split(' ');
         var elements = new List<object>();
-        foreach (var list in InpuеData) elements.Add(list);
-        for (int i = 0; i < elements.Count; i++)
+
+            for (int a = 0; a < InpuеData.Length; a++)            
+                if (InpuеData[a] != "")                
+                    elements.Add(InpuеData[a]);
+            
+            for (int i = 0; i < elements.Count; i++)
         {
             switch (elements[i])
             {

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "B3YAz2OVmqqALOjx9rkEB6vWj9ttr3V/ZYUiXGtwt5AuFYfBXoFNv0uPXN+jaXJ6e8ACs45pyWScuODyvE2Wgw==",
+  "dgSpecHash": "QI7h6l/YnkGqilvLykaiVyDah7gTkyQYpT3I8CmiHkFjhHRYyHy7V3M0dlh4WE4GMnuIrsv8pCVn2nzYEJ3fwA==",
   "success": true,
-  "projectFilePath": "D:\\Git\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
+  "projectFilePath": "D:\\Git\\practice_bukep\\student_27\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\clg200027\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.24\\microsoft.netcore.app.host.win-x64.3.1.24.nupkg.sha512"
   ],

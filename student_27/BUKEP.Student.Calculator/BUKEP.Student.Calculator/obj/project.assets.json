@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Git\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
+      "projectUniqueName": "D:\\Git\\practice_bukep\\student_27\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
       "projectName": "BUKEP.Student.Calculator",
-      "projectPath": "D:\\Git\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
+      "projectPath": "D:\\Git\\practice_bukep\\student_27\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator.csproj",
       "packagesPath": "C:\\Users\\clg200027\\.nuget\\packages\\",
-      "outputPath": "D:\\Git\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\obj\\",
+      "outputPath": "D:\\Git\\practice_bukep\\student_27\\BUKEP.Student.Calculator\\BUKEP.Student.Calculator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
