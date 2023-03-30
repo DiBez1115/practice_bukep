@@ -1,0 +1,14 @@
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.exe
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.deps.json
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.runtimeconfig.json
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.runtimeconfig.dev.json
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.dll
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\netcoreapp3.1\BUKEP.Student.Calculator.pdb
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.csproj.AssemblyReference.cache
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.AssemblyInfoInputs.cache
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.AssemblyInfo.cs
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.dll
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.pdb
+D:\Git\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\netcoreapp3.1\BUKEP.Student.Calculator.genruntimeconfig.cache
