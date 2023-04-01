@@ -8,71 +8,89 @@ namespace BUKEP.Student.Calculator
 {
     class Program
     {
+        public static ConsoleKey Key = ConsoleKey.Enter; 
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите математическое выражение (цифры и знаки указать через пробел)");
-            var data = Console.ReadLine().Split(' ');
-            var elem = new List<object>();
-            for (int v = 0; v < data.Length; v++)
+            while (Key == ConsoleKey.Enter) 
             {
-                if (data[v] != "")
-                {
-                    elem.Add(data[v]);
-                }
+                Run();
+                Console.Clear();
+            }
+            
+            while (Key != ConsoleKey.Enter) 
+            {
+                Environment.Exit(0);
+            }
+        }
+        static void Run()
+        {
+            Console.WriteLine("Введите простое математическое выражение для вычисления операции (+ или - или * или /) над двумя числами. По завершению ввода операции нажмите Enter:");
+            var InputData = Console.ReadLine();
+            var SplitData = InputData.Split(new char[] {'+', '-', '*', '/' }).ToList();
+            var elem = new List<object>();
+            foreach (var split in SplitData) 
+            {
+                elem.Add(split);
             }
             bool operatorFound = false;
-            for (int i = 0; i < elem.Count; i++)
+            for (int i = 0; i < InputData.Length; i++)
             {
-                switch (elem[i])
+                switch (InputData[i])
                 {
-                    case "+":
-                        var number1 = Convert.ToDouble(elem[elem.IndexOf("+") - 1]);
-                        var number2 = Convert.ToDouble(elem[elem.IndexOf("+") + 1]);
+                    case '+':
+                        var number1 = Convert.ToDouble(elem[0]);
+                        var number2 = Convert.ToDouble(elem[1]);
                         double Sum = number1 + number2;
-                        elem.Add("= " + Sum);
-                        for (int b = 0; b < elem.Count; b++)
-                            Console.Write(elem[b] + " ");
-
-                        break;
-                    case "-":
-                        var number3 = Convert.ToDouble(elem[elem.IndexOf("-") - 1]);
-                        var number4 = Convert.ToDouble(elem[elem.IndexOf("-") + 1]);
+                        Console.WriteLine($"{number1} + {number2} = {Sum}");
+                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                        Key = Console.ReadKey().Key;
+                        return;
+                    case '-':
+                        var number3 = Convert.ToDouble(elem[0]);
+                        var number4 = Convert.ToDouble(elem[1]);
                         double Addition = number3 - number4;
-                        elem.Add("= " + Addition);
-                        for (int b = 0; b < elem.Count; b++)
-                            Console.Write(elem[b] + " ");
-                        break;
-                    case "*":
-                        var number5 = Convert.ToDouble(elem[elem.IndexOf("*") - 1]);
-                        var number6 = Convert.ToDouble(elem[elem.IndexOf("*") + 1]);
+                        Console.WriteLine($"{number3} - {number4} = {Addition}");
+                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                        Key = Console.ReadKey().Key;
+                        return;
+                    case '*':
+                        var number5 = Convert.ToDouble(elem[0]);
+                        var number6 = Convert.ToDouble(elem[1]);
                         double Multiplication = number5 * number6;
-                        elem.Add("= " + Multiplication);
-                        for (int b = 0; b < elem.Count; b++)
-                            Console.Write(elem[b] + " ");
-                        break;
-                    case "/":
-                        var number7 = Convert.ToDouble(elem[elem.IndexOf("/") - 1]);
-                        var number8 = Convert.ToDouble(elem[elem.IndexOf("/") + 1]);
+                        Console.WriteLine($"{number5} * {number6} = {Multiplication}");
+                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                        Key = Console.ReadKey().Key;
+                        return;
+                    case '/':
+                        var number7 = Convert.ToDouble(elem[0]);
+                        var number8 = Convert.ToDouble(elem[1]);
                         if (number8 != 0)
                         {
                             double Division = number7 / number8;
-                            elem.Add("= " + Division);
-                            for (int b = 0; b < elem.Count; b++)
-                                Console.Write(elem[b] + " ");
+                            Console.WriteLine($"{number7} / {number8} = {Division}");
+                            Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                            Key = Console.ReadKey().Key;
                         }
                         else
                         {
                             Console.WriteLine("На ноль делить нельзя!");
+                            Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                            Key = Console.ReadKey().Key;
                             return;
                         }
-                        break;
+                        return;
                 }
+                
             }
             if(!operatorFound)
             {
                 Console.WriteLine("Невернная форма ввода!");
+                Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                Key = Console.ReadKey().Key;
             }
-
-        }
+            
+            
+        
+       }
     }
 }
