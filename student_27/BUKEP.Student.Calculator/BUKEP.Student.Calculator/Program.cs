@@ -11,15 +11,30 @@ namespace BUKEP.Student.Calculator
             {
                 Console.Clear();
                 Console.WriteLine("Введите простое математическое выражение для вычисления операции (+ или - или * или /) над двумя числами. По завершению ввода операции нажмите Enter:");
+                
                 var InpuеData = Console.ReadLine();
                 var result = InpuеData.Split(new char[] { '+', '-', '/', '*' });
+                
+                try
+                {
+                    double a0 = double.Parse(result[0]);
+                    double a1 = double.Parse(result[1]);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Это НЕ число!!!\n");
+                    Console.ReadKey();
+                    Main(args);
+                }
+
                 var elements = new List<object>();
+                
                 for (int a1 = 0; a1 < result.Length; a1++)
                 {
                     var result1 = result[a1].Trim();
                     elements.Add(result1);
                 }
-
+                
                 if (InpuеData.Contains("+")) elements.Insert(1, "+");
                 if (InpuеData.Contains("-")) elements.Insert(1, "-");
                 if (InpuеData.Contains("/")) elements.Insert(1, "/");
@@ -30,8 +45,8 @@ namespace BUKEP.Student.Calculator
                     switch (elements[i])
                     {
                         case "+":
-                            var n1 = Convert.ToDouble(elements[elements.IndexOf("+") - 1]);
-                            var n2 = Convert.ToDouble(elements[elements.IndexOf("+") + 1]);
+                            var n1 = Convert.ToDouble(elements[elements.IndexOf("+") - 1]);                            
+                            var n2 = Convert.ToDouble(elements[elements.IndexOf("+") + 1]);                           
                             double AddNum = n1 + n2;
                             elements.Add("= " + AddNum);
                             Print(elements);
@@ -74,7 +89,7 @@ namespace BUKEP.Student.Calculator
                 }                
                 Console.Write("Для повторного ввода операции нажмите Enter, для завершения приложения Esc.");
                 
-                    if (Console.ReadKey().Key == ConsoleKey.Escape) { break; }                                              
+                if (Console.ReadKey().Key == ConsoleKey.Escape) { break; }                                              
             }
         }
         static void Print(List<object> elems)
