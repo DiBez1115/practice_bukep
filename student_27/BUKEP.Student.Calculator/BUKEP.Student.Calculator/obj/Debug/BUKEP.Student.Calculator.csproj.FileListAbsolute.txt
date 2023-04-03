@@ -1,0 +1,15 @@
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe.config
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.pdb
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.AssemblyReference.cache
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.exe
+C:\Users\clg200027\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.pdb
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe.config
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.pdb
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.AssemblyReference.cache
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.SuggestedBindingRedirects.cache
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.exe
+D:\Git\practice_bukep\student_27\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.pdb
