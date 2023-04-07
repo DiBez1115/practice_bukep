@@ -29,22 +29,23 @@ namespace BUKEP.Student.SharpInstructions
             switch (SelectionData)
             {
                 case "1":
-                    Console.WriteLine("Введите диапозон значений через ENTER для конструкции IF ELSE");
+                    Console.WriteLine("Конструкции IF ELSE: введи два числа через ENTER для сравнения");
                     int inputs1 = int.Parse(Console.ReadLine());
                     int inputs2 = int.Parse(Console.ReadLine());
                     Console.Clear();
                     Console.WriteLine($"Данные введенные пользователем: {inputs1}, {inputs2}");
-                    if (inputs1 <= inputs2)
+                    if (inputs1 > inputs2)
                     {
-                        for (int i = inputs1; i <= inputs2; i++)
-                        {
-                            Console.WriteLine(i);
-                        }
+                        Console.WriteLine($"{inputs1} больше {inputs2}");
+                    }
+                    else if (inputs1 < inputs2)
+                    {
+                        Console.WriteLine($"{inputs1} меньше {inputs2}");
 
                     }
-                    else
+                    else if (inputs1 == inputs2)
                     {
-                        Console.WriteLine("Введен недопустимый диапазон значений!");
+                        Console.WriteLine($"{inputs1} равно {inputs2}");
                     }
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
@@ -65,7 +66,11 @@ namespace BUKEP.Student.SharpInstructions
                     }
                     else
                     {
-                        Console.WriteLine("Введен недопустимый диапазон значений!");
+                        while (inputs3 >= inputs4)
+                        {
+                            Console.WriteLine(inputs3);
+                            inputs3--;
+                        }
                     }
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
@@ -87,27 +92,25 @@ namespace BUKEP.Student.SharpInstructions
                     }
                     else
                     {
-                        Console.WriteLine("Введен недопустимый диапазон значений!");
+                        do
+                        {
+                            Console.WriteLine(inputs5);
+                            inputs5--;
+                        }
+                        while (inputs5 >= inputs6);
                     }
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
                     break;
                 case "4":
-                    Console.WriteLine("Введите диапозон значений через ENTER для цикла FOR");
+                    Console.WriteLine("Для выполнения подпрограммы FOR введите начальное число и количество повторений последовательно через Enter");
                     int inputs7 = int.Parse(Console.ReadLine());
                     int inputs8 = int.Parse(Console.ReadLine());
                     Console.Clear();
                     Console.WriteLine($"Данные введенные пользователем: {inputs7}, {inputs8}");
-                    if (inputs7 <= inputs8)
+                    for (int i = 0; i < inputs8; i++)
                     {
-                        for (int i = inputs7; i <= inputs8; i++)
-                        {
-                            Console.WriteLine(i);
-                        }
-                    }
-                    else
-                    {
-                        Console.WriteLine("Введен недопустимый диапазон значений!");
+                        Console.WriteLine(inputs7++);
                     }
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
@@ -191,3 +194,4 @@ namespace BUKEP.Student.SharpInstructions
         }
     }
 }
+
