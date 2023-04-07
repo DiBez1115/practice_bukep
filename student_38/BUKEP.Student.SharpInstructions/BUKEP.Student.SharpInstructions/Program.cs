@@ -51,59 +51,38 @@ namespace BUKEP.Student.SharpInstructions
                     Key = Console.ReadKey().Key;
                     break;
                 case "2":
-                    Console.WriteLine("Введите диапозон значений через ENTER для цикла WHILE");
+                    Console.WriteLine("Для выполнения цикла WHILE введите начальное число и количество повторений последовательно через Enter");
                     int inputs3 = int.Parse(Console.ReadLine());
                     int inputs4 = int.Parse(Console.ReadLine());
                     Console.Clear();
                     Console.WriteLine($"Данные введенные пользователем: {inputs3}, {inputs4}");
-                    if (inputs3 <= inputs4)
+                    var j = 0;
+                    while(j < inputs4)
                     {
-                        while (inputs3 <= inputs4)
-                        {
-                            Console.WriteLine(inputs3);
-                            inputs3++;
-                        }
-                    }
-                    else
-                    {
-                        while (inputs3 >= inputs4)
-                        {
-                            Console.WriteLine(inputs3);
-                            inputs3--;
-                        }
+                        j++;
+                        Console.WriteLine(inputs3++);
                     }
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
                     break;
                 case "3":
-                    Console.WriteLine("Введите диапозон значений через ENTER для цикла DO WHILE");
+                    Console.WriteLine("Для выполнения цикла DO WHILE введите начальное число и количество повторений последовательно через Enter");
                     int inputs5 = int.Parse(Console.ReadLine());
                     int inputs6 = int.Parse(Console.ReadLine());
                     Console.Clear();
                     Console.WriteLine($"Данные введенные пользователем: {inputs5}, {inputs6}");
-                    if (inputs5 <= inputs6)
+                    var y = 0;
+                    do
                     {
-                        do
-                        {
-                            Console.WriteLine(inputs5);
-                            inputs5++;
-                        }
-                        while (inputs5 <= inputs6);
+                        y++;
+                        Console.WriteLine(inputs5++);
                     }
-                    else
-                    {
-                        do
-                        {
-                            Console.WriteLine(inputs5);
-                            inputs5--;
-                        }
-                        while (inputs5 >= inputs6);
-                    }
+                    while (y < inputs6);
                     Console.WriteLine("Для продолжения нажмите ENTER для выхода нажмите ESC");
                     Key = Console.ReadKey().Key;
                     break;
                 case "4":
-                    Console.WriteLine("Для выполнения подпрограммы FOR введите начальное число и количество повторений последовательно через Enter");
+                    Console.WriteLine("Для выполнения цикла FOR введите начальное число и количество повторений последовательно через Enter");
                     int inputs7 = int.Parse(Console.ReadLine());
                     int inputs8 = int.Parse(Console.ReadLine());
                     Console.Clear();
