@@ -10,94 +10,173 @@ namespace BUKEP.Student.Calculator
             while (true)
             {
                 Console.Clear();
-                Console.WriteLine("Введите простое математическое выражение для вычисления операции (+ или - или * или /) над двумя числами. По завершению ввода операции нажмите Enter:");
-                
-                var InpuеData = Console.ReadLine();
-                var result = InpuеData.Split(new char[] { '+', '-', '/', '*' });
-                
-                try
-                {
-                    double a0 = double.Parse(result[0]);
-                    double a1 = double.Parse(result[1]);
-                }
-                catch (FormatException)
-                {
-                    Console.WriteLine("Это НЕ число!!!\n");
-                    Console.ReadKey();
-                    Main(args);
-                }
+                Console.Write("Введите математическое выражение: ");
 
-                var elements = new List<object>();
-                
-                for (int a1 = 0; a1 < result.Length; a1++)
-                {
-                    var result1 = result[a1].Trim();
-                    elements.Add(result1);
-                }
-                
-                if (InpuеData.Contains("+")) elements.Insert(1, "+");
-                if (InpuеData.Contains("-")) elements.Insert(1, "-");
-                if (InpuеData.Contains("/")) elements.Insert(1, "/");
-                if (InpuеData.Contains("*")) elements.Insert(1, "*");
+                string inputData = Console.ReadLine();
+                List<char> elms = new List<char>();
 
-                for (int i = 0; i < elements.Count; i++)
-                {
-                    switch (elements[i])
-                    {
-                        case "+":
-                            var n1 = Convert.ToDouble(elements[elements.IndexOf("+") - 1]);                            
-                            var n2 = Convert.ToDouble(elements[elements.IndexOf("+") + 1]);                           
-                            double AddNum = n1 + n2;
-                            elements.Add("= " + AddNum);
-                            Print(elements);
-                            Console.Clear();
-                            break;
+                foreach (char s in inputData)
+                    if (s != ' ') elms.Add(s);
 
-                        case "-":
-                            var n3 = Convert.ToDouble(elements[elements.IndexOf("-") - 1]);
-                            var n4 = Convert.ToDouble(elements[elements.IndexOf("-") + 1]);
-                            AddNum = n3 - n4;
-                            elements.Add("= " + AddNum);
-                            Print(elements);
-                            Console.Clear();
-                            break;
+                CheckingForSpacrs(elms, args);
 
-                        case "*":
-                            var n5 = Convert.ToDouble(elements[elements.IndexOf("*") - 1]);
-                            var n6 = Convert.ToDouble(elements[elements.IndexOf("*") + 1]);
-                            AddNum = n5 * n6;
-                            elements.Add("= " + AddNum);
-                            Print(elements);
-                            Console.Clear();
-                            break;
+                Stack<string> Operac = new Stack<string>();
+                Stack<double> Numm = new Stack<double>();
 
-                        case "/":
-                            var n7 = Convert.ToDouble(elements[elements.IndexOf("/") - 1]);
-                            var n8 = Convert.ToDouble(elements[elements.IndexOf("/") + 1]);
-                            if (n8 != 0)
-                            {
-                                AddNum = n7 / n8;
-                                elements.Add("= " + AddNum);
-                                Print(elements);
-                            }
-                            else
-                                Console.WriteLine("На ноль делить нельзя");
-                            Console.ReadKey();
-                            Console.Clear();                            
-                            break;
-                    }
-                }                
+                Stack<double> SkobkaNewNumm = new Stack<double>();
+                Stack<string> SkobkanewOperac = new Stack<string>();
+
+                Run(elms, Operac, Numm, args, SkobkaNewNumm, SkobkanewOperac);
+
+                Calc(Operac, Numm, args);
+                Console.Write("Результат: ");
+                foreach (char s in elms) Console.Write(s);
+                foreach (double nu in Numm) Console.Write("=" + nu);
+                Console.ReadKey();
+                Console.Clear();
                 Console.Write("Для повторного ввода операции нажмите Enter, для завершения приложения Esc.");
-                
-                if (Console.ReadKey().Key == ConsoleKey.Escape) { break; }                                              
+
+                if (Console.ReadKey().Key == ConsoleKey.Escape) { break; }
             }
         }
-        static void Print(List<object> elems)
+
+        static double Calc(Stack<string> op, Stack<double> num, string[] args)
         {
-            for (int a = 0; a < elems.Count; a++)
-                Console.Write(elems[a] + " ");               
-            Console.ReadKey();
-            Console.Clear();
+            double output = 0;
+            for (int i = 0; i < op.Count; i++)
+            {
+                string prov = op.Peek();
+                if (prov == "(")
+                    break;
+                string a1 = op.Pop();
+                double b1 = num.Pop();
+                double b2 = num.Pop();
+                switch (a1)
+                {
+                    case "+":
+                        output = b1 + b2;
+                        num.Push(output);
+                        break;
+
+                    case "-":
+                        output = b2 - b1;
+                        num.Push(output);
+                        break;
+
+                    case "*":
+                        output = b1 * b2;
+                        num.Push(output);
+                        break;
+
+                    case "/":
+                        if (b1 == 0)
+                        {
+                            Console.WriteLine("Деление на 0!!!\n");
+                            Console.ReadKey();
+                            Console.Clear();
+                            Main(args);
+                        }
+                        output = b2 / b1;
+                        num.Push(output);
+                        break;
+                }
+            }
+            return output;
+        }
+
+        static void Run(List<char> elms, Stack<string> Operac, Stack<double> Numm, string[] args, Stack<double> SkobkaNewNumm, Stack<string> SkobkaNewOperac)
+        {
+            var result = "";
+            for (int i = 0; i < elms.Count; i++)
+            {
+                if (!(Operac.Contains("(")))
+                {
+                    if ((Operac.Count == 1 && Numm.Count == 2) && ((Operac.Contains("*") || Operac.Contains("/")))) { Calc(Operac, Numm, args); }
+
+
+                    if (elms[i] == '+' || elms[i] == '-' || elms[i] == '*' || elms[i] == '/')
+                    {
+                        if (result != "")
+                        {
+                            Numm.Push(Convert.ToDouble(result));
+                            result = "";
+                            if (Operac.Count >= 1)
+                            {
+                                string pop = Operac.Peek();
+                                if ((Operac.Contains("*") && Numm.Count >= 2) || (Operac.Contains("/") && Numm.Count >= 2) && pop != "(") Calc(Operac, Numm, args);
+                                result = "";
+                            }
+                        }
+                        result += elms[i];
+                        if ((result == "-" || result == "+" || result == ")") && Numm.Count >= 2) Calc(Operac, Numm, args);
+                        Operac.Push(result);
+                        result = "";
+                    }
+
+                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    {
+                        if (elms[i] == '.' || elms[i] == ',') result += ",";
+                        else result += elms[i];
+                        if (i + 1 != elms.Count)
+                        {
+                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/')
+                            {
+                                Numm.Push(Convert.ToDouble(result));
+
+                                result = "";
+                            }
+                        }
+                    }
+                }
+                if (elms[i] == '(') Operac.Push("(");
+
+                if (elms[i] == ')')
+                {
+                    Calc(Operac, Numm, args);
+                    if (Operac.Peek() == "(")
+                        Operac.Pop();
+                }
+                if (Operac.Contains("("))
+                {
+                    if ((elms[i] == '-') && (elms[i - 1] == '('))
+                        result += elms[i];
+                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    {
+                        if (elms[i] == '.' || elms[i] == ',') result += ",";
+                        else result += elms[i];
+                        if (i + 1 != elms.Count)
+                        {
+                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/' || elms[i + 1] == '(' || elms[i + 1] == ')')
+                            {
+                                Numm.Push(Convert.ToDouble(result));
+
+                                result = "";
+                            }
+                        }
+                    }
+                    if ((elms[i] == '*' || elms[i] == '/' || elms[i] == '-' || elms[i] == '+') && elms[i - 1] != '(')
+                    {
+                        Operac.Push(elms[i].ToString());
+                    }
+                }
+            }
+            if (result != "") Numm.Push(Convert.ToDouble(result));
+            Calc(Operac, Numm, args);
+        }
+        static void CheckingForSpacrs(List<char> elms, string[] args)
+        {
+            for (int i = 0; i < elms.Count; i++)
+            {
+                var res = elms[i];
+                if (res == '-' || res == '+' || res == '/' || res == '*' || res == '(' || res == ')' || res == '.' || res == ',') { continue; }
+                if (!double.TryParse(res.ToString(), out var a))
+                {
+                    Console.WriteLine("Пиши цифирки!");
+                    Console.ReadKey();
+                    Main(args);
+                    continue;
+                }
+            }
         }
     }
 }
