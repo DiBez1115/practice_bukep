@@ -8,89 +8,140 @@ namespace BUKEP.Student.Calculator
 {
     class Program
     {
-        public static ConsoleKey Key = ConsoleKey.Enter; 
+        public static ConsoleKey Key = ConsoleKey.Enter;
         static void Main(string[] args)
         {
-            while (Key == ConsoleKey.Enter) 
+            while (Key == ConsoleKey.Enter)
             {
                 Run();
                 Console.Clear();
             }
-            
-            while (Key != ConsoleKey.Enter) 
+            while (Key != ConsoleKey.Enter)
             {
                 Environment.Exit(0);
             }
         }
         static void Run()
         {
-            Console.WriteLine("Введите простое математическое выражение для вычисления операции (+ или - или * или /) над двумя числами. По завершению ввода операции нажмите Enter:");
-            var InputData = Console.ReadLine();
-            var SplitData = InputData.Split(new char[] {'+', '-', '*', '/' }).ToList();
-            var elem = new List<object>();
-            foreach (var split in SplitData) 
+            Console.Write("Введите математическое выражение для вычисления операции с приоритетами в виде <<(>> <<)>> или знаками (+ или - или * или /).\nПо завершению ввода операции нажмите Enter:");
+            string dataStack = Console.ReadLine();
+            string splitData = dataStack.Replace(" ", "");
+            var stackOp = new Stack<char>();
+            var stackNum = new Stack<double>();
+            int i = 0;
+            string str = "";
+            bool lastCharIsOperator = true;
+            while (i < dataStack.Length)
             {
-                elem.Add(split);
-            }
-            bool operatorFound = false;
-            for (int i = 0; i < InputData.Length; i++)
-            {
-                switch (InputData[i])
+                if (Char.IsDigit(dataStack[i]) || dataStack[i] == '-')
                 {
-                    case '+':
-                        var number1 = Convert.ToDouble(elem[0]);
-                        var number2 = Convert.ToDouble(elem[1]);
-                        double Sum = number1 + number2;
-                        Console.WriteLine($"{number1} + {number2} = {Sum}");
-                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                        Key = Console.ReadKey().Key;
-                        return;
-                    case '-':
-                        var number3 = Convert.ToDouble(elem[0]);
-                        var number4 = Convert.ToDouble(elem[1]);
-                        double Addition = number3 - number4;
-                        Console.WriteLine($"{number3} - {number4} = {Addition}");
-                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                        Key = Console.ReadKey().Key;
-                        return;
-                    case '*':
-                        var number5 = Convert.ToDouble(elem[0]);
-                        var number6 = Convert.ToDouble(elem[1]);
-                        double Multiplication = number5 * number6;
-                        Console.WriteLine($"{number5} * {number6} = {Multiplication}");
-                        Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                        Key = Console.ReadKey().Key;
-                        return;
-                    case '/':
-                        var number7 = Convert.ToDouble(elem[0]);
-                        var number8 = Convert.ToDouble(elem[1]);
-                        if (number8 != 0)
-                        {
-                            double Division = number7 / number8;
-                            Console.WriteLine($"{number7} / {number8} = {Division}");
-                            Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                            Key = Console.ReadKey().Key;
-                        }
-                        else
-                        {
-                            Console.WriteLine("На ноль делить нельзя!");
-                            Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                            Key = Console.ReadKey().Key;
-                            return;
-                        }
-                        return;
+                    if (dataStack[i] == '-')
+                    {
+                        str += '-';
+                        i++;
+                    }
+                    while (i < dataStack.Length && (Char.IsDigit(dataStack[i]) || dataStack[i] == ','))
+                    {
+                        str += dataStack[i];
+                        i++;
+                    }
+                    double num = double.Parse(str);
+                    stackNum.Push(num);
+                    lastCharIsOperator = false;
+                    str = "";
                 }
-                
+                else if (dataStack[i] == '(')
+                {
+                    stackOp.Push(dataStack[i]);
+                    i++;
+                }
+                else if (dataStack[i] == ')')
+                {
+                    while (stackOp.Peek() != '(')
+                    {
+                        char op = stackOp.Pop();
+                        double num2 = stackNum.Pop();
+                        double num1 = stackNum.Pop();
+                        double result = PerformOperation(num1, num2, op);
+                        stackNum.Push(result);
+                    }
+                    stackOp.Pop();
+                    i++;
+                    lastCharIsOperator = false;
+                }
+                else if (dataStack[i] == '+' || dataStack[i] == '-' || dataStack[i] == '*' || dataStack[i] == '/')
+                {
+                    while (stackOp.Count > 0 && HasPrecedence(dataStack[i], stackOp.Peek()))
+                    {
+                        char op = stackOp.Pop();
+                        double num2 = stackNum.Pop();
+                        double num1 = stackNum.Pop();
+                        double result = PerformOperation(num1, num2, op);
+                        stackNum.Push(result);
+                    }
+                    stackOp.Push(dataStack[i]);
+                    i++;
+                    lastCharIsOperator = true;
+                }
+                else if (dataStack[i] == ' ')
+                {
+                    i++;
+                }
+                else
+                {
+                    Console.WriteLine("Введено неверное выражение!");
+                    Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+                    Console.ReadKey();
+                    return;
+                }
             }
-            if(!operatorFound)
+            while (stackOp.Count > 0)
             {
-                Console.WriteLine("Невернная форма ввода!");
-                Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
-                Key = Console.ReadKey().Key;
+                char op = stackOp.Pop();
+                double num2 = stackNum.Pop();
+                double num1 = stackNum.Pop();
+                double result = PerformOperation(num1, num2, op);
+                stackNum.Push(result);
             }
-            
-            
-        
-       }
+            Console.WriteLine($"{splitData}={stackNum.Peek()}");
+            Console.WriteLine("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре");
+            Key = Console.ReadKey().Key;
+        }
+        static bool HasPrecedence(char op1, char op2)
+        {
+            if (op2 == '(' || op2 == ')')
+            {
+                return false;
+            }
+            if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-'))
+            {
+                return false;
+            }
+            return true;
+        }
+        static double PerformOperation(double num1, double num2, char op)
+        {
+            switch (op)
+            {
+                case '+':
+                    return num1 + num2;
+                case '-':
+                    return num1 - num2;
+                case '*':
+                    return num1 * num2;
+                case '/':
+                    if (num2 == 0)
+                    {
+                        Console.WriteLine("Нельзя делить на ноль!");
+                        Console.WriteLine("Для продолжения нажмити любую клавишу.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        Run();
+                    }
+                    return num1 / num2;
+                default:
+                    return 0;
+            }
+        }
     }
 }
