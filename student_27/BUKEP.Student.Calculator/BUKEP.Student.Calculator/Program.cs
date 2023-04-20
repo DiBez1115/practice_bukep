@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BUKEP.Student.Calculator
+namespace BUKEP.Student.CalculationOfDegeneracyulator
 {
+
     internal class Program
     {
+
         static void Main(string[] args)
         {
             while (true)
@@ -13,170 +15,286 @@ namespace BUKEP.Student.Calculator
                 Console.Write("Введите математическое выражение: ");
 
                 string inputData = Console.ReadLine();
-                List<char> elms = new List<char>();
+
+                List<char> Elements = new List<char>();
 
                 foreach (char s in inputData)
-                    if (s != ' ') elms.Add(s);
+                {
+                    if (s != ' ')
+                    {
+                        Elements.Add(s);
+                    }
 
-                CheckingForSpacrs(elms, args);
+                }
 
-                Stack<string> Operac = new Stack<string>();
-                Stack<double> Numm = new Stack<double>();
+                CheckingForSpacrs(Elements, args);
 
-                Stack<double> SkobkaNewNumm = new Stack<double>();
-                Stack<string> SkobkanewOperac = new Stack<string>();
+                Stack<string> Operation = new Stack<string>();
+                Stack<double> Numbers = new Stack<double>();
 
-                Run(elms, Operac, Numm, args, SkobkaNewNumm, SkobkanewOperac);
+                Run(Elements, Operation, Numbers, args);
 
-                Calc(Operac, Numm, args);
+                CalculationOfDegeneracy(Operation, Numbers, args);
+
                 Console.Write("Результат: ");
-                foreach (char s in elms) Console.Write(s);
-                foreach (double nu in Numm) Console.Write("=" + nu);
+
+                foreach (char sumbol in Elements)
+                {
+                    Console.Write(sumbol);
+                }
+
+                foreach (double ResultNumbers in Numbers)
+                {
+                    Console.Write("=" + ResultNumbers);
+                }
+
                 Console.ReadKey();
                 Console.Clear();
                 Console.Write("Для повторного ввода операции нажмите Enter, для завершения приложения Esc.");
 
-                if (Console.ReadKey().Key == ConsoleKey.Escape) { break; }
+                if (Console.ReadKey().Key == ConsoleKey.Escape)
+                {
+                    break;
+                }
+
             }
+
         }
 
-        static double Calc(Stack<string> op, Stack<double> num, string[] args)
+        static double CalculationOfDegeneracy(Stack<string> Operation, Stack<double> Numbers, string[] args)
         {
-            double output = 0;
-            for (int i = 0; i < op.Count; i++)
+            double CalculationResult = 0;
+
+            for (int i = 0; i < Operation.Count; i++)
             {
-                string prov = op.Peek();
-                if (prov == "(")
+                string CheckingTheOperation = Operation.Peek();
+
+                if (CheckingTheOperation == "(")
+                {
                     break;
-                string a1 = op.Pop();
-                double b1 = num.Pop();
-                double b2 = num.Pop();
-                switch (a1)
+                }
+
+                string UpperOperation = Operation.Pop();
+
+                double FirstNumbers = Numbers.Pop();
+
+                double SecondNumbers = Numbers.Pop();
+
+                switch (UpperOperation)
                 {
                     case "+":
-                        output = b1 + b2;
-                        num.Push(output);
+
+                        CalculationResult = FirstNumbers + SecondNumbers;
+
+                        Numbers.Push(CalculationResult);
+
                         break;
 
                     case "-":
-                        output = b2 - b1;
-                        num.Push(output);
+
+                        CalculationResult = SecondNumbers - FirstNumbers;
+
+                        Numbers.Push(CalculationResult);
+
                         break;
 
                     case "*":
-                        output = b1 * b2;
-                        num.Push(output);
+
+                        CalculationResult = FirstNumbers * SecondNumbers;
+
+                        Numbers.Push(CalculationResult);
+
                         break;
 
                     case "/":
-                        if (b1 == 0)
+
+                        if (FirstNumbers == 0)
                         {
                             Console.WriteLine("Деление на 0!!!\n");
                             Console.ReadKey();
                             Console.Clear();
+
                             Main(args);
                         }
-                        output = b2 / b1;
-                        num.Push(output);
+
+                        CalculationResult = SecondNumbers / FirstNumbers;
+
+                        Numbers.Push(CalculationResult);
+
                         break;
                 }
+
             }
-            return output;
+
+            return CalculationResult;
+
         }
 
-        static void Run(List<char> elms, Stack<string> Operac, Stack<double> Numm, string[] args, Stack<double> SkobkaNewNumm, Stack<string> SkobkaNewOperac)
+        static void Run(List<char> Elements, Stack<string> Operation, Stack<double> Numbers, string[] args)
         {
             var result = "";
-            for (int i = 0; i < elms.Count; i++)
+
+            for (int i = 0; i < Elements.Count; i++)
             {
-                if (!(Operac.Contains("(")))
+                if (!(Operation.Contains("(")))
                 {
-                    if ((Operac.Count == 1 && Numm.Count == 2) && ((Operac.Contains("*") || Operac.Contains("/")))) { Calc(Operac, Numm, args); }
+                    if (Operation.Count == 1 && Numbers.Count == 2 && (Operation.Contains("*") || Operation.Contains("/")))
+                    {
+                        CalculationOfDegeneracy(Operation, Numbers, args);
+                    }
 
 
-                    if (elms[i] == '+' || elms[i] == '-' || elms[i] == '*' || elms[i] == '/')
+                    if (Elements[i] == '+' || Elements[i] == '-' || Elements[i] == '*' || Elements[i] == '/')
                     {
                         if (result != "")
                         {
-                            Numm.Push(Convert.ToDouble(result));
+                            Numbers.Push(Convert.ToDouble(result));
+
                             result = "";
-                            if (Operac.Count >= 1)
+
+                            if (Operation.Count >= 1)
                             {
-                                string pop = Operac.Peek();
-                                if ((Operac.Contains("*") && Numm.Count >= 2) || (Operac.Contains("/") && Numm.Count >= 2) && pop != "(") Calc(Operac, Numm, args);
+                                string UpperOperation = Operation.Peek();
+
+                                if (Operation.Contains("*") && Numbers.Count >= 2 || Operation.Contains("/") && Numbers.Count >= 2 && UpperOperation != "(")
+                                {
+                                    CalculationOfDegeneracy(Operation, Numbers, args);
+                                }
+
                                 result = "";
+
                             }
+
                         }
-                        result += elms[i];
-                        if ((result == "-" || result == "+" || result == ")") && Numm.Count >= 2) Calc(Operac, Numm, args);
-                        Operac.Push(result);
+
+                        result += Elements[i];
+
+                        if ((result == "-" || result == "+" || result == ")") && Numbers.Count >= 2)
+                        {
+                            CalculationOfDegeneracy(Operation, Numbers, args);
+                        }
+
+                        Operation.Push(result);
+
                         result = "";
+
                     }
 
-                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    if ((Elements[i] >= '0' && Elements[i] <= '9') || Elements[i] == '.' || Elements[i] == ',')
                     {
-                        if (elms[i] == '.' || elms[i] == ',') result += ",";
-                        else result += elms[i];
-                        if (i + 1 != elms.Count)
+                        if (Elements[i] == '.' || Elements[i] == ',')
                         {
-                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/')
+                            result += ",";
+                        }
+
+                        else
+                        {
+                            result += Elements[i];
+                        }
+
+                        if (i + 1 != Elements.Count)
+                        {
+                            if (Elements[i + 1] == '+' || Elements[i + 1] == '-' || Elements[i + 1] == '*' || Elements[i + 1] == '/')
                             {
-                                Numm.Push(Convert.ToDouble(result));
+                                Numbers.Push(Convert.ToDouble(result));
 
                                 result = "";
                             }
-                        }
-                    }
-                }
-                if (elms[i] == '(') Operac.Push("(");
 
-                if (elms[i] == ')')
-                {
-                    Calc(Operac, Numm, args);
-                    if (Operac.Peek() == "(")
-                        Operac.Pop();
+                        }
+
+                    }
+
                 }
-                if (Operac.Contains("("))
+
+                if (Elements[i] == '(')
                 {
-                    if ((elms[i] == '-') && (elms[i - 1] == '('))
-                        result += elms[i];
-                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    Operation.Push("(");
+                }
+
+                if (Elements[i] == ')')
+                {
+                    CalculationOfDegeneracy(Operation, Numbers, args);
+
+                    if (Operation.Peek() == "(")
                     {
-                        if (elms[i] == '.' || elms[i] == ',') result += ",";
-                        else result += elms[i];
-                        if (i + 1 != elms.Count)
+                        Operation.Pop();
+                    }
+
+                }
+
+                if (Operation.Contains("("))
+                {
+                    if (Elements[i] == '-' && Elements[i - 1] == '(')
+                    {
+                        result += Elements[i];
+                    }
+
+                    if ((Elements[i] >= '0' && Elements[i] <= '9') || Elements[i] == '.' || Elements[i] == ',')
+                    {
+                        if (Elements[i] == '.' || Elements[i] == ',')
                         {
-                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/' || elms[i + 1] == '(' || elms[i + 1] == ')')
+                            result += ",";
+                        }
+
+                        else
+                        {
+                            result += Elements[i];
+                        }
+
+                        if (i + 1 != Elements.Count)
+                        {
+                            if (Elements[i + 1] == '+' || Elements[i + 1] == '-' || Elements[i + 1] == '*' || Elements[i + 1] == '/' || Elements[i + 1] == '(' || Elements[i + 1] == ')')
                             {
-                                Numm.Push(Convert.ToDouble(result));
+                                Numbers.Push(Convert.ToDouble(result));
 
                                 result = "";
                             }
+
                         }
+
                     }
-                    if ((elms[i] == '*' || elms[i] == '/' || elms[i] == '-' || elms[i] == '+') && elms[i - 1] != '(')
+
+                    if ((Elements[i] == '*' || Elements[i] == '/' || Elements[i] == '-' || Elements[i] == '+') && Elements[i - 1] != '(')
                     {
-                        Operac.Push(elms[i].ToString());
+                        Operation.Push(Elements[i].ToString());
                     }
+
                 }
+
             }
-            if (result != "") Numm.Push(Convert.ToDouble(result));
-            Calc(Operac, Numm, args);
-        }
-        static void CheckingForSpacrs(List<char> elms, string[] args)
-        {
-            for (int i = 0; i < elms.Count; i++)
+
+            if (result != "")
             {
-                var res = elms[i];
-                if (res == '-' || res == '+' || res == '/' || res == '*' || res == '(' || res == ')' || res == '.' || res == ',') { continue; }
-                if (!double.TryParse(res.ToString(), out var a))
+                Numbers.Push(Convert.ToDouble(result));
+            }
+
+            CalculationOfDegeneracy(Operation, Numbers, args);
+        }
+
+        static void CheckingForSpacrs(List<char> Elements, string[] args)
+        {
+            for (int i = 0; i < Elements.Count; i++)
+            {
+
+                if (Elements[i] == '-' || Elements[i] == '+' || Elements[i] == '/' || Elements[i] == '*' || Elements[i] == '(' || Elements[i] == ')' || Elements[i] == '.' || Elements[i] == ',')
+                {
+                    continue;
+                }
+
+                if (!double.TryParse(Elements[i].ToString(), out _))
                 {
                     Console.WriteLine("Пиши цифирки!");
                     Console.ReadKey();
+
                     Main(args);
                     continue;
                 }
+
             }
+
         }
+
     }
+
 }
