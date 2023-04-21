@@ -14,27 +14,27 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                 Console.Clear();
                 Console.Write("Введите математическое выражение: ");
 
-                string inputData = Console.ReadLine();
+                string line = Console.ReadLine();
 
                 List<char> Elements = new List<char>();
 
-                foreach (char s in inputData)
+                foreach (char item in line)
                 {
-                    if (s != ' ')
+                    if (item != ' ')
                     {
-                        Elements.Add(s);
+                        Elements.Add(item);
                     }
 
                 }
 
-                CheckingForSpacrs(Elements, args);
+                ChecksExpressionsForLetters(Elements, args);
 
                 Stack<string> Operation = new Stack<string>();
                 Stack<double> Numbers = new Stack<double>();
 
-                Run(Elements, Operation, Numbers, args);
+                TranslationOfExpressionToReversePolish(Elements, Operation, Numbers, args);
 
-                CalculationOfDegeneracy(Operation, Numbers, args);
+                ApplyOperation(Operation, Numbers, args);
 
                 Console.Write("Результат: ");
 
@@ -61,11 +61,11 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
         }
 
-        static double CalculationOfDegeneracy(Stack<string> Operation, Stack<double> Numbers, string[] args)
+        static double ApplyOperation(Stack<string> Operation, Stack<double> Numbers, string[] args)
         {
             double CalculationResult = 0;
 
-            for (int i = 0; i < Operation.Count; i++)
+            for (int iteration = 0; iteration < Operation.Count; iteration++)
             {
                 string CheckingTheOperation = Operation.Peek();
 
@@ -87,7 +87,6 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         CalculationResult = FirstNumbers + SecondNumbers;
 
                         Numbers.Push(CalculationResult);
-
                         break;
 
                     case "-":
@@ -95,7 +94,6 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         CalculationResult = SecondNumbers - FirstNumbers;
 
                         Numbers.Push(CalculationResult);
-
                         break;
 
                     case "*":
@@ -103,7 +101,6 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         CalculationResult = FirstNumbers * SecondNumbers;
 
                         Numbers.Push(CalculationResult);
-
                         break;
 
                     case "/":
@@ -120,31 +117,28 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         CalculationResult = SecondNumbers / FirstNumbers;
 
                         Numbers.Push(CalculationResult);
-
                         break;
                 }
 
             }
 
             return CalculationResult;
-
         }
 
-        static void Run(List<char> Elements, Stack<string> Operation, Stack<double> Numbers, string[] args)
+        static void TranslationOfExpressionToReversePolish(List<char> Elements, Stack<string> Operation, Stack<double> Numbers, string[] args)
         {
             var result = "";
 
-            for (int i = 0; i < Elements.Count; i++)
+            for (int iteration = 0; iteration < Elements.Count; iteration++)
             {
                 if (!(Operation.Contains("(")))
                 {
                     if (Operation.Count == 1 && Numbers.Count == 2 && (Operation.Contains("*") || Operation.Contains("/")))
                     {
-                        CalculationOfDegeneracy(Operation, Numbers, args);
+                        ApplyOperation(Operation, Numbers, args);
                     }
 
-
-                    if (Elements[i] == '+' || Elements[i] == '-' || Elements[i] == '*' || Elements[i] == '/')
+                    if (Elements[iteration] == '+' || Elements[iteration] == '-' || Elements[iteration] == '*' || Elements[iteration] == '/')
                     {
                         if (result != "")
                         {
@@ -158,43 +152,41 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                                 if (Operation.Contains("*") && Numbers.Count >= 2 || Operation.Contains("/") && Numbers.Count >= 2 && UpperOperation != "(")
                                 {
-                                    CalculationOfDegeneracy(Operation, Numbers, args);
+                                    ApplyOperation(Operation, Numbers, args);
                                 }
 
                                 result = "";
-
                             }
 
                         }
 
-                        result += Elements[i];
+                        result += Elements[iteration];
 
                         if ((result == "-" || result == "+" || result == ")") && Numbers.Count >= 2)
                         {
-                            CalculationOfDegeneracy(Operation, Numbers, args);
+                            ApplyOperation(Operation, Numbers, args);
                         }
 
                         Operation.Push(result);
 
                         result = "";
-
                     }
 
-                    if ((Elements[i] >= '0' && Elements[i] <= '9') || Elements[i] == '.' || Elements[i] == ',')
+                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
                     {
-                        if (Elements[i] == '.' || Elements[i] == ',')
+                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
                         {
                             result += ",";
                         }
 
                         else
                         {
-                            result += Elements[i];
+                            result += Elements[iteration];
                         }
 
-                        if (i + 1 != Elements.Count)
+                        if (iteration + 1 != Elements.Count)
                         {
-                            if (Elements[i + 1] == '+' || Elements[i + 1] == '-' || Elements[i + 1] == '*' || Elements[i + 1] == '/')
+                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/')
                             {
                                 Numbers.Push(Convert.ToDouble(result));
 
@@ -207,14 +199,14 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                 }
 
-                if (Elements[i] == '(')
+                if (Elements[iteration] == '(')
                 {
                     Operation.Push("(");
                 }
 
-                if (Elements[i] == ')')
+                if (Elements[iteration] == ')')
                 {
-                    CalculationOfDegeneracy(Operation, Numbers, args);
+                    ApplyOperation(Operation, Numbers, args);
 
                     if (Operation.Peek() == "(")
                     {
@@ -225,26 +217,26 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                 if (Operation.Contains("("))
                 {
-                    if (Elements[i] == '-' && Elements[i - 1] == '(')
+                    if (Elements[iteration] == '-' && Elements[iteration - 1] == '(')
                     {
-                        result += Elements[i];
+                        result += Elements[iteration];
                     }
 
-                    if ((Elements[i] >= '0' && Elements[i] <= '9') || Elements[i] == '.' || Elements[i] == ',')
+                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
                     {
-                        if (Elements[i] == '.' || Elements[i] == ',')
+                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
                         {
                             result += ",";
                         }
 
                         else
                         {
-                            result += Elements[i];
+                            result += Elements[iteration];
                         }
 
-                        if (i + 1 != Elements.Count)
+                        if (iteration + 1 != Elements.Count)
                         {
-                            if (Elements[i + 1] == '+' || Elements[i + 1] == '-' || Elements[i + 1] == '*' || Elements[i + 1] == '/' || Elements[i + 1] == '(' || Elements[i + 1] == ')')
+                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/' || Elements[iteration + 1] == '(' || Elements[iteration + 1] == ')')
                             {
                                 Numbers.Push(Convert.ToDouble(result));
 
@@ -255,9 +247,9 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                     }
 
-                    if ((Elements[i] == '*' || Elements[i] == '/' || Elements[i] == '-' || Elements[i] == '+') && Elements[i - 1] != '(')
+                    if ((Elements[iteration] == '*' || Elements[iteration] == '/' || Elements[iteration] == '-' || Elements[iteration] == '+') && Elements[iteration - 1] != '(')
                     {
-                        Operation.Push(Elements[i].ToString());
+                        Operation.Push(Elements[iteration].ToString());
                     }
 
                 }
@@ -269,20 +261,19 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                 Numbers.Push(Convert.ToDouble(result));
             }
 
-            CalculationOfDegeneracy(Operation, Numbers, args);
+            ApplyOperation(Operation, Numbers, args);
         }
 
-        static void CheckingForSpacrs(List<char> Elements, string[] args)
+        static void ChecksExpressionsForLetters(List<char> Elements, string[] args)
         {
-            for (int i = 0; i < Elements.Count; i++)
+            for (int iteration = 0; iteration < Elements.Count; iteration++)
             {
-
-                if (Elements[i] == '-' || Elements[i] == '+' || Elements[i] == '/' || Elements[i] == '*' || Elements[i] == '(' || Elements[i] == ')' || Elements[i] == '.' || Elements[i] == ',')
+                if (Elements[iteration] == '-' || Elements[iteration] == '+' || Elements[iteration] == '/' || Elements[iteration] == '*' || Elements[iteration] == '(' || Elements[iteration] == ')' || Elements[iteration] == '.' || Elements[iteration] == ',')
                 {
                     continue;
                 }
 
-                if (!double.TryParse(Elements[i].ToString(), out _))
+                if (!double.TryParse(Elements[iteration].ToString(), out _))
                 {
                     Console.WriteLine("Пиши цифирки!");
                     Console.ReadKey();
