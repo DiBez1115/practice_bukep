@@ -6,169 +6,296 @@ using System.Threading.Tasks;
 
 namespace BUKEP.Student.WindowsCalculator
 {
+
     internal class Calculator
     {
-        public static string Calcul(string args)
+
+        public static string CalculatorOperation(string expression)
         {
+            string line = expression;
 
-            string inputData = args;
+            string OutputResult;
 
-            string result;
+            List<char> Elements = new List<char>();
 
-            List<char> elms = new List<char>();
-
-            foreach (char s in inputData)
-                if (s != ' ') elms.Add(s);
-
-            Stack<string> Operac = new Stack<string>();
-            Stack<double> Numm = new Stack<double>();
-
-            Stack<double> SkobkaNewNumm = new Stack<double>();
-            Stack<string> SkobkanewOperac = new Stack<string>();
-
-            Run(elms, Operac, Numm, args, SkobkaNewNumm, SkobkanewOperac);
-
-            Calc(Operac, Numm, args);
-
-            double NummResult = Numm.Pop();       
-
-            return result = NummResult.ToString();
-        }
-        public static double Calc(Stack<string> op, Stack<double> num, string args)
-        {
-            double output = 0;
-            for (int i = 0; i < op.Count; i++)
+            foreach (char symbol in line)
             {
-                string prov = op.Peek();
-                if (prov == "(")
+                if (symbol != ' ')
+                {
+                    Elements.Add(symbol);
+                }
+
+            }
+
+            Stack<string> Operations = new Stack<string>();
+            Stack<double> Numbers = new Stack<double>();
+
+            TranslationOfExpressionToReversePolish(Elements, Operations, Numbers);
+
+            ApplyOperation(Operations, Numbers);
+
+            double NummResult = Numbers.Pop();       
+
+            return OutputResult = NummResult.ToString();
+        }
+        public static double ApplyOperation(Stack<string> Operations, Stack<double> Numbers)
+        {
+            double OutputResult = 0;
+
+            for (int iteration = 0; iteration < Operations.Count; iteration++)
+            {
+                string CheckingOperation = Operations.Peek();
+
+                if (CheckingOperation == "(")
+                {
                     break;
-                string a1 = op.Pop();
-                double b1 = num.Pop();
-                double b2 = num.Pop();
-                switch (a1)
+                }
+
+                string UpperOperation = Operations.Pop();
+
+                double FirstNumbers = Numbers.Pop();
+
+                double SecondNumbers = Numbers.Pop();
+
+                switch (UpperOperation)
                 {
                     case "+":
-                        output = b1 + b2;
-                        num.Push(output);
+
+                        OutputResult = FirstNumbers + SecondNumbers;
+
+                        Numbers.Push(OutputResult);
+
                         break;
 
                     case "-":
-                        output = b2 - b1;
-                        num.Push(output);
+
+                        OutputResult = SecondNumbers - FirstNumbers;
+
+                        Numbers.Push(OutputResult);
+
                         break;
 
                     case "*":
-                        output = b1 * b2;
-                        num.Push(output);
+
+                        OutputResult = FirstNumbers * SecondNumbers;
+
+                        Numbers.Push(OutputResult);
+
                         break;
 
                     case "/":
-                        output = b2 / b1;
-                        num.Push(output);
+
+                        OutputResult = SecondNumbers / FirstNumbers;
+
+                        Numbers.Push(OutputResult);
+
                         break;
+
                     case "^":
-                        output = Math.Pow(b2, b1);
-                        num.Push(output);
+
+                        OutputResult = Math.Pow(SecondNumbers, FirstNumbers);
+
+                        Numbers.Push(OutputResult);
+
                         break;
                 }
+
             }
-            return output;
+
+            return OutputResult;
         }
-        public static void Run(List<char> elms, Stack<string> Operac, Stack<double> Numm, string args, Stack<double> SkobkaNewNumm, Stack<string> SkobkaNewOperac)
+
+        public static void TranslationOfExpressionToReversePolish(List<char> Elements, Stack<string> Operations, Stack<double> Numbers)
         {
             var result = "";
-            for (int i = 0; i < elms.Count; i++)
-            {
-                if (!(Operac.Contains("(")))
-                {
-                    if (elms[i] == '^')
-                        Operac.Push("^");
-                    if ((Operac.Count == 1 && Numm.Count == 2) && ((Operac.Contains("*") || Operac.Contains("/") || Operac.Contains("^")))) { Calc(Operac, Numm, args); }
 
-                    if (elms[i] == '+' || elms[i] == '-' || elms[i] == '*' || elms[i] == '/')
+            for (int iteration = 0; iteration < Elements.Count; iteration++)
+            {
+                if (!Operations.Contains("("))
+                {
+                    if (iteration == 0 && Elements[iteration] == '-')
+                    {
+                        result += "-";
+
+                        continue;
+                    }
+
+                    if (Elements[iteration] == '^')
+                    {
+                        Operations.Push("^");
+                    }
+
+                    if (Operations.Count == 1 && Numbers.Count == 2 && (Operations.Contains("*") || Operations.Contains("/") || Operations.Contains("^"))) 
+                    { 
+                        ApplyOperation(Operations, Numbers);
+                    }
+
+                    if (Elements[iteration] == '+' || Elements[iteration] == '-' || Elements[iteration] == '*' || Elements[iteration] == '/')
                     {
                         if (result != "")
                         {
-                            Numm.Push(Convert.ToDouble(result));
+                            Numbers.Push(Convert.ToDouble(result));
+
                             result = "";
-                            if (Operac.Count >= 1)
+
+                            if (Operations.Count >= 1)
                             {
-                                string pop = Operac.Peek();
-                                if ((Operac.Contains("*") && Numm.Count >= 2) || (Operac.Contains("/") && Numm.Count >= 2) && pop != "(") Calc(Operac, Numm, args);
+                                string topOperation = Operations.Peek();
+
+                                if ((Operations.Contains("*") && Numbers.Count >= 2) || Operations.Contains("/") && Numbers.Count >= 2 && topOperation != "(")
+                                {
+                                    ApplyOperation(Operations, Numbers);
+                                }
+
                                 result = "";
                             }
+
                         }
-                        result += elms[i];
-                        if ((result == "-" || result == "+" || result == ")") && Numm.Count >= 2) Calc(Operac, Numm, args);
-                        Operac.Push(result);
+
+                        result += Elements[iteration];
+
+                        if ((result == "-" || result == "+" || result == ")") && Numbers.Count >= 2)
+                        {
+                            ApplyOperation(Operations, Numbers);
+                        }
+
+                        Operations.Push(result);
+
                         result = "";
                     }
 
-                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
                     {
-                        if (elms[i] == '.' || elms[i] == ',') result += ",";
-                        else result += elms[i];
-
-                        if (i + 1 != elms.Count)
+                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
                         {
-                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/' || elms[i + 1] == '^')
+                            result += ",";
+                        }
+
+                        else
+                        {
+                            result += Elements[iteration];
+                        }
+
+                        if (iteration + 1 != Elements.Count)
+                        {
+                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/' || Elements[iteration + 1] == '^')
                             {
-                                Numm.Push(Convert.ToDouble(result));
-                                if (Operac.Count != 0 && Operac.Peek() == "^")
-                                    Calc(Operac, Numm, args);
+                                Numbers.Push(Convert.ToDouble(result));
+
+                                if (Operations.Count != 0 && Operations.Peek() == "^")
+                                {
+                                    ApplyOperation(Operations, Numbers);
+                                }
 
                                 result = "";
                             }
-                        }
-                    }
-                }
-                if (elms[i] == '(') Operac.Push("(");
 
-                if (elms[i] == ')')
-                {
-                    Calc(Operac, Numm, args);
-                    if (Operac.Peek() == "(")
-                        Operac.Pop();
+                        }
+
+                    }
+
                 }
-                if (Operac.Contains("("))
+
+                if (Elements[iteration] == '(')
                 {
-                    if (elms[i] == '^')
-                        Operac.Push("^");
-                    if ((elms[i] == '-') && (elms[i - 1] == '('))
-                        result += elms[i];
-                    if ((elms[i] >= '0' && elms[i] <= '9') || elms[i] == '.' || elms[i] == ',')
+                    Operations.Push("(");
+                }
+
+                if (Elements[iteration] == ')')
+                {
+                    ApplyOperation(Operations, Numbers);
+
+                    if (Operations.Peek() == "(")
                     {
-                        if (elms[i] == '.' || elms[i] == ',') result += ",";
-                        else result += elms[i];
-                        if (i + 1 != elms.Count)
+                        Operations.Pop();
+                    }
+
+                }
+
+                if (Operations.Contains("("))
+                {
+                    if (Elements[iteration] == '^')
+                    {
+                        Operations.Push("^");
+                    }
+
+                    if (Elements[iteration] == '-' && Elements[iteration - 1] == '(')
+                    {
+                        result += Elements[iteration];
+                    }
+
+                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
+                    {
+                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
                         {
-                            if (elms[i + 1] == '+' || elms[i + 1] == '-' || elms[i + 1] == '*' || elms[i + 1] == '/' || elms[i + 1] == '(' || elms[i + 1] == ')' || elms[i + 1] == '^')
+                            result += ",";
+                        }
+
+                        else
+                        {
+                            result += Elements[iteration];
+                        }
+
+                        if (iteration + 1 != Elements.Count)
+                        {
+                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/' || Elements[iteration + 1] == '(' || Elements[iteration + 1] == ')' || Elements[iteration + 1] == '^')
                             {
-                                Numm.Push(Convert.ToDouble(result));
-                                if (Operac.Peek() == "^")
-                                    Calc(Operac, Numm, args);
+                                Numbers.Push(Convert.ToDouble(result));
+
+                                if (Operations.Peek() == "^")
+                                { 
+                                    ApplyOperation(Operations, Numbers); 
+                                }
+
                                 result = "";
                             }
+
                         }
+
                     }
-                    if ((elms[i] == '*' || elms[i] == '/' || elms[i] == '-' || elms[i] == '+') && elms[i - 1] != '(')
+
+                    if ((Elements[iteration] == '*' || Elements[iteration] == '/' || Elements[iteration] == '-' || Elements[iteration] == '+') && Elements[iteration - 1] != '(')
                     {
-                        Operac.Push(elms[i].ToString());
+                        Operations.Push(Elements[iteration].ToString());
                     }
+
                 }
+
             }
-            if (result != "") Numm.Push(Convert.ToDouble(result));
-            Calc(Operac, Numm, args);
-        }       
+
+            if (result != "")
+            {
+                Numbers.Push(Convert.ToDouble(result));
+            }
+
+            ApplyOperation(Operations, Numbers);
+        }
+        
         public static bool CheckingExpression(string Expression)
         {
-            bool result = false;
+            bool VerificationResult = false;
+
             char LastElement = Expression[Expression.Length - 1];
+
+            if (LastElement == ')')
+            {
+                char elementDeforeBracket = Expression[Expression.Length - 2];
+
+                if (elementDeforeBracket == '-' || elementDeforeBracket == '+' || elementDeforeBracket == '/' || elementDeforeBracket == '*')
+                {
+                    VerificationResult = true;
+                }
+
+            }
+
             if (LastElement == '-'|| LastElement == '+' || LastElement == '/' || LastElement == '*' || LastElement == '^'|| LastElement == ',')
             {
-                return result = true;
+                VerificationResult = true;
             }
-            return result;
+
+            return VerificationResult;
         }
+
     }
+
 }

@@ -46,7 +46,7 @@
             this.Elm3 = new System.Windows.Forms.Button();
             this.Elm0 = new System.Windows.Forms.Button();
             this.ElmRavno = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.DisplayedText = new System.Windows.Forms.TextBox();
             this.Degree = new System.Windows.Forms.Button();
             this.ClosedSkobka = new System.Windows.Forms.Button();
             this.OpenSkobka = new System.Windows.Forms.Button();
@@ -69,7 +69,7 @@
             this.ElmC.Text = "С";
             this.ElmC.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.ElmC.UseVisualStyleBackColor = false;
-            this.ElmC.Click += new System.EventHandler(this.DeleteAll_Click);
+            this.ElmC.Click += new System.EventHandler(this.CleaningButton);
             // 
             // ElmRemov
             // 
@@ -86,7 +86,7 @@
             this.ElmRemov.TabIndex = 2;
             this.ElmRemov.Text = "⌫";
             this.ElmRemov.UseVisualStyleBackColor = false;
-            this.ElmRemov.Click += new System.EventHandler(this.Backspace_Click);
+            this.ElmRemov.Click += new System.EventHandler(this.BackspaceButton);
             // 
             // ElmDelenie
             // 
@@ -103,7 +103,7 @@
             this.ElmDelenie.TabIndex = 3;
             this.ElmDelenie.Text = "÷";
             this.ElmDelenie.UseVisualStyleBackColor = false;
-            this.ElmDelenie.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.ElmDelenie.Click += new System.EventHandler(this.ButtonForEnteringOperations);
             // 
             // ElmYmnog
             // 
@@ -120,7 +120,7 @@
             this.ElmYmnog.TabIndex = 7;
             this.ElmYmnog.Text = "×";
             this.ElmYmnog.UseVisualStyleBackColor = false;
-            this.ElmYmnog.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.ElmYmnog.Click += new System.EventHandler(this.ButtonForEnteringOperations);
             // 
             // Elm9
             // 
@@ -137,7 +137,7 @@
             this.Elm9.TabIndex = 6;
             this.Elm9.Text = "9";
             this.Elm9.UseVisualStyleBackColor = false;
-            this.Elm9.Click += new System.EventHandler(this.Num_Click);
+            this.Elm9.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm8
             // 
@@ -154,7 +154,7 @@
             this.Elm8.TabIndex = 5;
             this.Elm8.Text = "8";
             this.Elm8.UseVisualStyleBackColor = false;
-            this.Elm8.Click += new System.EventHandler(this.Num_Click);
+            this.Elm8.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm7
             // 
@@ -171,7 +171,7 @@
             this.Elm7.TabIndex = 4;
             this.Elm7.Text = "7";
             this.Elm7.UseVisualStyleBackColor = false;
-            this.Elm7.Click += new System.EventHandler(this.Num_Click);
+            this.Elm7.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // ElmMinys
             // 
@@ -188,7 +188,7 @@
             this.ElmMinys.TabIndex = 11;
             this.ElmMinys.Text = "-";
             this.ElmMinys.UseVisualStyleBackColor = false;
-            this.ElmMinys.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.ElmMinys.Click += new System.EventHandler(this.ButtonForEnteringOperations);
             // 
             // Elm6
             // 
@@ -205,7 +205,7 @@
             this.Elm6.TabIndex = 10;
             this.Elm6.Text = "6";
             this.Elm6.UseVisualStyleBackColor = false;
-            this.Elm6.Click += new System.EventHandler(this.Num_Click);
+            this.Elm6.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm5
             // 
@@ -222,7 +222,7 @@
             this.Elm5.TabIndex = 9;
             this.Elm5.Text = "5";
             this.Elm5.UseVisualStyleBackColor = false;
-            this.Elm5.Click += new System.EventHandler(this.Num_Click);
+            this.Elm5.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm4
             // 
@@ -239,7 +239,7 @@
             this.Elm4.TabIndex = 8;
             this.Elm4.Text = "4";
             this.Elm4.UseVisualStyleBackColor = false;
-            this.Elm4.Click += new System.EventHandler(this.Num_Click);
+            this.Elm4.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // ElmPlys
             // 
@@ -256,7 +256,7 @@
             this.ElmPlys.TabIndex = 15;
             this.ElmPlys.Text = "+";
             this.ElmPlys.UseVisualStyleBackColor = false;
-            this.ElmPlys.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.ElmPlys.Click += new System.EventHandler(this.ButtonForEnteringOperations);
             // 
             // Elm2
             // 
@@ -273,7 +273,7 @@
             this.Elm2.TabIndex = 13;
             this.Elm2.Text = "2";
             this.Elm2.UseVisualStyleBackColor = false;
-            this.Elm2.Click += new System.EventHandler(this.Num_Click);
+            this.Elm2.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm1
             // 
@@ -290,7 +290,7 @@
             this.Elm1.TabIndex = 16;
             this.Elm1.Text = "1";
             this.Elm1.UseVisualStyleBackColor = false;
-            this.Elm1.Click += new System.EventHandler(this.Num_Click);
+            this.Elm1.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm3
             // 
@@ -307,7 +307,7 @@
             this.Elm3.TabIndex = 17;
             this.Elm3.Text = "3";
             this.Elm3.UseVisualStyleBackColor = false;
-            this.Elm3.Click += new System.EventHandler(this.Num_Click);
+            this.Elm3.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Elm0
             // 
@@ -324,7 +324,7 @@
             this.Elm0.TabIndex = 18;
             this.Elm0.Text = "0";
             this.Elm0.UseVisualStyleBackColor = false;
-            this.Elm0.Click += new System.EventHandler(this.Num_Click);
+            this.Elm0.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // ElmRavno
             // 
@@ -341,25 +341,25 @@
             this.ElmRavno.TabIndex = 19;
             this.ElmRavno.Text = "=";
             this.ElmRavno.UseVisualStyleBackColor = false;
-            this.ElmRavno.Click += new System.EventHandler(this.ElmRavno_Click);
+            this.ElmRavno.Click += new System.EventHandler(this.PressingTheButtonEquals);
             // 
-            // textBox1
+            // DisplayedText
             // 
-            this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Font = new System.Drawing.Font("Lucida Fax", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.SystemColors.MenuText;
-            this.textBox1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBox1.Location = new System.Drawing.Point(10, 9);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.textBox1.Size = new System.Drawing.Size(229, 41);
-            this.textBox1.TabIndex = 20;
-            this.textBox1.TabStop = false;
-            this.textBox1.Text = "0";
+            this.DisplayedText.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.DisplayedText.BackColor = System.Drawing.SystemColors.Window;
+            this.DisplayedText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.DisplayedText.Cursor = System.Windows.Forms.Cursors.Default;
+            this.DisplayedText.Font = new System.Drawing.Font("Lucida Fax", 26F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DisplayedText.ForeColor = System.Drawing.SystemColors.MenuText;
+            this.DisplayedText.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.DisplayedText.Location = new System.Drawing.Point(10, 9);
+            this.DisplayedText.Name = "DisplayedText";
+            this.DisplayedText.ReadOnly = true;
+            this.DisplayedText.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.DisplayedText.Size = new System.Drawing.Size(229, 41);
+            this.DisplayedText.TabIndex = 20;
+            this.DisplayedText.TabStop = false;
+            this.DisplayedText.Text = "0";
             // 
             // Degree
             // 
@@ -376,7 +376,7 @@
             this.Degree.TabIndex = 21;
             this.Degree.Text = "^";
             this.Degree.UseVisualStyleBackColor = false;
-            this.Degree.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.Degree.Click += new System.EventHandler(this.ButtonForEnteringOperations);
             // 
             // ClosedSkobka
             // 
@@ -393,7 +393,7 @@
             this.ClosedSkobka.TabIndex = 22;
             this.ClosedSkobka.Text = ")";
             this.ClosedSkobka.UseVisualStyleBackColor = false;
-            this.ClosedSkobka.Click += new System.EventHandler(this.Num_Click);
+            this.ClosedSkobka.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // OpenSkobka
             // 
@@ -410,7 +410,7 @@
             this.OpenSkobka.TabIndex = 23;
             this.OpenSkobka.Text = "(";
             this.OpenSkobka.UseVisualStyleBackColor = false;
-            this.OpenSkobka.Click += new System.EventHandler(this.Num_Click);
+            this.OpenSkobka.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // ElmComma
             // 
@@ -427,7 +427,7 @@
             this.ElmComma.TabIndex = 24;
             this.ElmComma.Text = ",";
             this.ElmComma.UseVisualStyleBackColor = false;
-            this.ElmComma.Click += new System.EventHandler(this.NonRepeatingElements_Click);
+            this.ElmComma.Click += new System.EventHandler(this.ButtonsForEnteringNumbers);
             // 
             // Form1
             // 
@@ -439,7 +439,7 @@
             this.Controls.Add(this.OpenSkobka);
             this.Controls.Add(this.ClosedSkobka);
             this.Controls.Add(this.Degree);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.DisplayedText);
             this.Controls.Add(this.ElmRavno);
             this.Controls.Add(this.Elm0);
             this.Controls.Add(this.Elm3);
@@ -487,7 +487,7 @@
         private System.Windows.Forms.Button Elm3;
         private System.Windows.Forms.Button Elm0;
         private System.Windows.Forms.Button ElmRavno;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox DisplayedText;
         private System.Windows.Forms.Button Degree;
         private System.Windows.Forms.Button ClosedSkobka;
         private System.Windows.Forms.Button OpenSkobka;

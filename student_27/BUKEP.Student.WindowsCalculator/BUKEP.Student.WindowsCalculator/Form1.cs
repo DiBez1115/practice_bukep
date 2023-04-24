@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,117 +11,211 @@ using System.Windows.Forms;
 
 namespace BUKEP.Student.WindowsCalculator
 {
+
     public partial class Form1 : Form
     {
-        public bool CleaningUpTheResult = true;
+
+        public bool CleanUpTheResult = false;
+
         public Form1()
         {
-            
             InitializeComponent();
         }
 
-        public void ReturnKoretkaToEnd() 
-        {           
-            textBox1.SelectionStart = textBox1.Text.Length;
-        }
-        private void DeleteAll_Click(object sender, EventArgs e)
-        {           
-            textBox1.Text = "0";
-        }
-        private void Backspace_Click(object sender, EventArgs e)
+        public void ReturnKoretkaToEnd()
         {
-            if (CleaningUpTheResult == false) { textBox1.Text = "0"; CleaningUpTheResult = true; }
+            DisplayedText.SelectionStart = DisplayedText.Text.Length;
+        }
 
-            if (CleaningUpTheResult == true)
+        private void CleaningButton(object sender, EventArgs e)
+        {
+            DisplayedText.Text = "0";
+        }
+
+        private void BackspaceButton(object sender, EventArgs e)
+        {
+            if (CleanUpTheResult == true)
             {
-                textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
-                if (textBox1.Text == "")
-                    textBox1.Text = "0";
-                textBox1.SelectionStart = textBox1.Text.Length;
-                ReturnKoretkaToEnd();
+                DisplayedText.Text = "0";
+
+                CleanUpTheResult = true;
             }
-        }
-        private void Num_Click(object sender, EventArgs e)
-        {
-            if (CleaningUpTheResult == false) { textBox1.Text = "0"; CleaningUpTheResult = true; }
-            
-            if (CleaningUpTheResult == true)
-            {
-                Button Butt = (Button)sender;
-                if (textBox1.Text == "0")
-                    textBox1.Text = Butt.Text;
-                else if (textBox1.Text != "0")
-                    textBox1.Text = textBox1.Text + Butt.Text;
-                ReturnKoretkaToEnd();
-            }
-        }
-        private void NonRepeatingElements_Click(object sender, EventArgs e)
-        {
-            Button Butt = (Button)sender;
 
-            string Input = Butt.Text;       
-            string Operac = textBox1.Text[textBox1.Text.Length - 1].ToString();
-            if (CleaningUpTheResult == false) {CleaningUpTheResult = true;}
-
-            if (CleaningUpTheResult == true)
+            if (CleanUpTheResult == false)
             {
-                if (textBox1.Text == "0")
+                DisplayedText.Text = DisplayedText.Text.Substring(0, DisplayedText.Text.Length - 1);
+
+                if (DisplayedText.Text == "")
                 {
-                    if (textBox1.Text == "0" && (Input == ","||Input == "+"|| Input == "-" || Input == "^"||Input == "÷" || Input == "×"))
-                        textBox1.Text += Input;
-                    else
-                        textBox1.Text = "0";
+                    DisplayedText.Text = "0";
+                }
+
+                DisplayedText.SelectionStart = DisplayedText.Text.Length;
+
+                ReturnKoretkaToEnd();
+            }
+        }
+
+
+        private void ButtonsForEnteringNumbers(object sender, EventArgs e)
+        {
+            Button clicking = (Button)sender;
+
+            string Operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
+
+            if (Operation == "," && clicking.Text == ",")
+            {
+                DisplayedText.Text = DisplayedText.Text.Substring(0, DisplayedText.Text.Length - 1);
+
+                DisplayedText.Text += clicking.Text;
+            }
+
+            else
+            {
+                if (CleanUpTheResult == true)
+                {
+                    DisplayedText.Text = "0";
+
+                    CleanUpTheResult = false;
+                }
+
+                if (CleanUpTheResult == false)
+                {
+                    if (DisplayedText.Text == "0")
+                    {
+                        if (clicking.Text == ",")
+                        {
+                            DisplayedText.Text += ",";
+                        }
+
+                        else
+                        {
+                            DisplayedText.Text = clicking.Text;
+                        }
+
+                    }
+
+                    else if (DisplayedText.Text != "0")
+                    {
+                        DisplayedText.Text += clicking.Text;
+                    }
+
+                    ReturnKoretkaToEnd();
+                }
+
+            }
+
+        }
+
+        private void ButtonForEnteringOperations(object sender, EventArgs e)
+        {
+            Button clicking = (Button)sender;
+
+            string SelectedOperation = clicking.Text;
+
+            string Operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
+
+            if (CleanUpTheResult == true)
+            {
+                CleanUpTheResult = false;
+            }
+
+            if (CleanUpTheResult == false)
+            {
+                if (DisplayedText.Text == "0")
+                {
+                    DisplayedText.Text += SelectedOperation;
                 }
 
                 else
                 {
-                    if (Operac == "+" || Operac == "-" || Operac == "^" || Operac == "×" || Operac == "÷" || Operac == ",")
+                    if (Operation == "+" || Operation == "-" || Operation == "^" || Operation == "×" || Operation == "÷" || Operation == ",")
                     {
-                        textBox1.Text = textBox1.Text.Substring(0, textBox1.Text.Length - 1);
+                        DisplayedText.Text = DisplayedText.Text.Substring(0, DisplayedText.Text.Length - 1);
                     }
-                    textBox1.Text += Input;
+
+                    DisplayedText.Text += SelectedOperation;
                 }
+
                 ReturnKoretkaToEnd();
             }
+
         }
-        private void ElmRavno_Click(object sender, EventArgs e)
-        {           
-            CleaningUpTheResult = false;
-            Button Butt = (Button)sender;
-            string input = textBox1.Text;
+
+        private void PressingTheButtonEquals(object sender, EventArgs e)
+        {
+            CleanUpTheResult = true;
+
+            string selectedNumbers = DisplayedText.Text;
+
             string ResultInput = "";
-            foreach (char c in input) 
+
+            foreach (char Symbol in selectedNumbers)
             {
-                if (c >= '0' && c <= '9')
-                    ResultInput += c;
-                if (c == '×')
+                if (Symbol >= '0' && Symbol <= '9')
+                {
+                    ResultInput += Symbol;
+                }
+
+                if (Symbol == '×' || Symbol == '*')
+                {
                     ResultInput += '*';
-                if (c == '÷')
+                }
+
+                if (Symbol == '÷' || Symbol == '/')
+                {
                     ResultInput += '/';
-                if (c == '-')
+                }
+
+                if (Symbol == '-')
+                {
                     ResultInput += '-';
-                if (c == '+')
+                }
+
+                if (Symbol == '+')
+                {
                     ResultInput += '+';
-                if (c == ',')
+                }
+
+                if (Symbol == ',')
+                {
                     ResultInput += ',';
-                if (c == '^')
+                }
+
+                if (Symbol == '^')
+                {
                     ResultInput += '^';
-                if (c == '(')
+                }
+
+                if (Symbol == '(')
+                {
                     ResultInput += '(';
-                if (c == ')')
+                }
+
+                if (Symbol == ')')
+                {
                     ResultInput += ')';
+                }
+
             }
-            textBox1.Clear();
+
+            DisplayedText.Clear();
+
             if (Calculator.CheckingExpression(ResultInput) == false)
             {
-                textBox1.Text = Calculator.Calcul(ResultInput);
+                DisplayedText.Text = Calculator.CalculatorOperation(ResultInput);
             }
+
             else
             {
-                CleaningUpTheResult = true;
-                textBox1.Text = ResultInput;
-            }    
+                CleanUpTheResult = false;
+
+                DisplayedText.Text = ResultInput;
+            }
+
             ReturnKoretkaToEnd();
         }
-    }    
+
+    }
+    
 }
