@@ -1,4 +1,4 @@
-﻿namespace BUKEP.Student.WindowsCalculator
+﻿namespace BUKEP.Student.WindowsCalculatingExpressions
 {
     partial class Form1
     {

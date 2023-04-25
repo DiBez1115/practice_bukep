@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BUKEP.Student.WindowsCalculator
+namespace BUKEP.Student.WindowsCalculatingExpressions
 {
 
     public partial class Form1 : Form
@@ -22,7 +22,7 @@ namespace BUKEP.Student.WindowsCalculator
             InitializeComponent();
         }
 
-        public void ReturnKoretkaToEnd()
+        public void ReturnCorriageToEnd()
         {
             DisplayedText.SelectionStart = DisplayedText.Text.Length;
         }
@@ -52,22 +52,21 @@ namespace BUKEP.Student.WindowsCalculator
 
                 DisplayedText.SelectionStart = DisplayedText.Text.Length;
 
-                ReturnKoretkaToEnd();
+                ReturnCorriageToEnd();
             }
         }
 
-
         private void ButtonsForEnteringNumbers(object sender, EventArgs e)
         {
-            Button clicking = (Button)sender;
+            Button buttonPressed = (Button)sender;
 
-            string Operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
+            string operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
 
-            if (Operation == "," && clicking.Text == ",")
+            if (operation == "," && buttonPressed.Text == ",")
             {
                 DisplayedText.Text = DisplayedText.Text.Substring(0, DisplayedText.Text.Length - 1);
 
-                DisplayedText.Text += clicking.Text;
+                DisplayedText.Text += buttonPressed.Text;
             }
 
             else
@@ -83,24 +82,24 @@ namespace BUKEP.Student.WindowsCalculator
                 {
                     if (DisplayedText.Text == "0")
                     {
-                        if (clicking.Text == ",")
+                        if (buttonPressed.Text == ",")
                         {
                             DisplayedText.Text += ",";
                         }
 
                         else
                         {
-                            DisplayedText.Text = clicking.Text;
+                            DisplayedText.Text = buttonPressed.Text;
                         }
 
                     }
 
                     else if (DisplayedText.Text != "0")
                     {
-                        DisplayedText.Text += clicking.Text;
+                        DisplayedText.Text += buttonPressed.Text;
                     }
 
-                    ReturnKoretkaToEnd();
+                    ReturnCorriageToEnd();
                 }
 
             }
@@ -109,11 +108,11 @@ namespace BUKEP.Student.WindowsCalculator
 
         private void ButtonForEnteringOperations(object sender, EventArgs e)
         {
-            Button clicking = (Button)sender;
+            Button buttonPressed = (Button)sender;
 
-            string SelectedOperation = clicking.Text;
+            string selectedOperation = buttonPressed.Text;
 
-            string Operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
+            string operation = DisplayedText.Text[DisplayedText.Text.Length - 1].ToString();
 
             if (CleanUpTheResult == true)
             {
@@ -124,20 +123,20 @@ namespace BUKEP.Student.WindowsCalculator
             {
                 if (DisplayedText.Text == "0")
                 {
-                    DisplayedText.Text += SelectedOperation;
+                    DisplayedText.Text += selectedOperation;
                 }
 
                 else
                 {
-                    if (Operation == "+" || Operation == "-" || Operation == "^" || Operation == "×" || Operation == "÷" || Operation == ",")
+                    if (operation == "+" || operation == "-" || operation == "^" || operation == "×" || operation == "÷" || operation == ",")
                     {
                         DisplayedText.Text = DisplayedText.Text.Substring(0, DisplayedText.Text.Length - 1);
                     }
 
-                    DisplayedText.Text += SelectedOperation;
+                    DisplayedText.Text += selectedOperation;
                 }
 
-                ReturnKoretkaToEnd();
+                ReturnCorriageToEnd();
             }
 
         }
@@ -148,72 +147,72 @@ namespace BUKEP.Student.WindowsCalculator
 
             string selectedNumbers = DisplayedText.Text;
 
-            string ResultInput = "";
+            string resultInput = "";
 
-            foreach (char Symbol in selectedNumbers)
+            foreach (char symbol in selectedNumbers)
             {
-                if (Symbol >= '0' && Symbol <= '9')
+                if (symbol >= '0' && symbol <= '9')
                 {
-                    ResultInput += Symbol;
+                    resultInput += symbol;
                 }
 
-                if (Symbol == '×' || Symbol == '*')
+                if (symbol == '×' || symbol == '*')
                 {
-                    ResultInput += '*';
+                    resultInput += '*';
                 }
 
-                if (Symbol == '÷' || Symbol == '/')
+                if (symbol == '÷' || symbol == '/')
                 {
-                    ResultInput += '/';
+                    resultInput += '/';
                 }
 
-                if (Symbol == '-')
+                if (symbol == '-')
                 {
-                    ResultInput += '-';
+                    resultInput += '-';
                 }
 
-                if (Symbol == '+')
+                if (symbol == '+')
                 {
-                    ResultInput += '+';
+                    resultInput += '+';
                 }
 
-                if (Symbol == ',')
+                if (symbol == ',')
                 {
-                    ResultInput += ',';
+                    resultInput += ',';
                 }
 
-                if (Symbol == '^')
+                if (symbol == '^')
                 {
-                    ResultInput += '^';
+                    resultInput += '^';
                 }
 
-                if (Symbol == '(')
+                if (symbol == '(')
                 {
-                    ResultInput += '(';
+                    resultInput += '(';
                 }
 
-                if (Symbol == ')')
+                if (symbol == ')')
                 {
-                    ResultInput += ')';
+                    resultInput += ')';
                 }
 
             }
 
             DisplayedText.Clear();
 
-            if (Calculator.CheckingExpression(ResultInput) == false)
+            if (CalculatingExpressions.CheckingCorrectnessTheExpression(resultInput) == true)
             {
-                DisplayedText.Text = Calculator.CalculatorOperation(ResultInput);
+                DisplayedText.Text = CalculatingExpressions.PassTheExpressionToCalculatingExpressions(resultInput);
             }
 
             else
             {
                 CleanUpTheResult = false;
 
-                DisplayedText.Text = ResultInput;
+                DisplayedText.Text = resultInput.Replace('/', '÷').Replace('*', '×');
             }
 
-            ReturnKoretkaToEnd();
+            ReturnCorriageToEnd();
         }
 
     }

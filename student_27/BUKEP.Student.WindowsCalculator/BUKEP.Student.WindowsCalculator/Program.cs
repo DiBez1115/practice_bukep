@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BUKEP.Student.WindowsCalculator
+namespace BUKEP.Student.WindowsCalculatingExpressions
 {
     internal static class Program
     {
