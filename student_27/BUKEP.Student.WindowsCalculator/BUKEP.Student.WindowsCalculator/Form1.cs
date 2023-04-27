@@ -9,12 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BUKEP.Student.WindowsCalculatingExpressions
+namespace BUKEP.Student.WindowsCalculator
 {
 
     public partial class Form1 : Form
     {
-
+        /// <summary>
+        /// Переменная необходимая для отчистки результата, используется в методах: 
+        /// PressingTheButtonEquals; 
+        /// ButtonForEnteringOperations; 
+        /// ButtonsForEnteringNumbers;
+        /// BackspaceButton.
+        /// </summary>
         public bool CleanUpTheResult = false;
 
         public Form1()
@@ -22,16 +28,29 @@ namespace BUKEP.Student.WindowsCalculatingExpressions
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Метод возвращает каретку в самый конец.
+        /// </summary>
         public void ReturnCorriageToEnd()
         {
             DisplayedText.SelectionStart = DisplayedText.Text.Length;
         }
 
+        /// <summary>
+        /// Метод отчищает текстовую строку, привязан к кнопке "С"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CleaningButton(object sender, EventArgs e)
         {
             DisplayedText.Text = "0";
         }
 
+        /// <summary>
+        /// Метод удаляющий последний добавленный пользователем символ, привязан к кнопке "⌫"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackspaceButton(object sender, EventArgs e)
         {
             if (CleanUpTheResult == true)
@@ -56,6 +75,11 @@ namespace BUKEP.Student.WindowsCalculatingExpressions
             }
         }
 
+        /// <summary>
+        /// Метод добавляющий в текстовую строку число, запятую или скобки. Привязан к кнопкам чисел, запятой и скобк.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonsForEnteringNumbers(object sender, EventArgs e)
         {
             Button buttonPressed = (Button)sender;
@@ -106,6 +130,11 @@ namespace BUKEP.Student.WindowsCalculatingExpressions
 
         }
 
+        /// <summary>
+        /// Метод добавляющий в текстовую строку операцию. Привязан к кнопкам с операциями.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonForEnteringOperations(object sender, EventArgs e)
         {
             Button buttonPressed = (Button)sender;
@@ -141,75 +170,31 @@ namespace BUKEP.Student.WindowsCalculatingExpressions
 
         }
 
+        /// <summary>
+        /// Метод выполнят вычисления выражения, полученное от пользователя. Привязан к кнопке "=".
+        /// В данном методе текстовая строка передается методу (CheckingCorrectnessTheExpression), в котором происходит проверка выражения на корректность записи.
+        /// А так же, в данном методе текстовая строка передается методу (PassTheExpressionToCalculatingExpressions), в котором происходит вычисление выражения.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PressingTheButtonEquals(object sender, EventArgs e)
         {
             CleanUpTheResult = true;
 
-            string selectedNumbers = DisplayedText.Text;
-
-            string resultInput = "";
-
-            foreach (char symbol in selectedNumbers)
-            {
-                if (symbol >= '0' && symbol <= '9')
-                {
-                    resultInput += symbol;
-                }
-
-                if (symbol == '×' || symbol == '*')
-                {
-                    resultInput += '*';
-                }
-
-                if (symbol == '÷' || symbol == '/')
-                {
-                    resultInput += '/';
-                }
-
-                if (symbol == '-')
-                {
-                    resultInput += '-';
-                }
-
-                if (symbol == '+')
-                {
-                    resultInput += '+';
-                }
-
-                if (symbol == ',')
-                {
-                    resultInput += ',';
-                }
-
-                if (symbol == '^')
-                {
-                    resultInput += '^';
-                }
-
-                if (symbol == '(')
-                {
-                    resultInput += '(';
-                }
-
-                if (symbol == ')')
-                {
-                    resultInput += ')';
-                }
-
-            }
+            string selectedNumbers = DisplayedText.Text.Replace('÷', '/').Replace('×','*');
 
             DisplayedText.Clear();
 
-            if (CalculatingExpressions.CheckingCorrectnessTheExpression(resultInput) == true)
+            if (CalculatingExpressions.CheckingCorrectnessTheExpression(selectedNumbers) == true)
             {
-                DisplayedText.Text = CalculatingExpressions.PassTheExpressionToCalculatingExpressions(resultInput);
+                DisplayedText.Text = CalculatingExpressions.PassTheExpressionToCalculatingExpressions(selectedNumbers);
             }
 
             else
             {
                 CleanUpTheResult = false;
 
-                DisplayedText.Text = resultInput.Replace('/', '÷').Replace('*', '×');
+                DisplayedText.Text = selectedNumbers.Replace('/', '÷').Replace('*', '×');
             }
 
             ReturnCorriageToEnd();
