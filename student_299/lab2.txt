@@ -1,0 +1,11 @@
+git clone https://github.com/DiBez1115/practice_bukep - получение репозитория на локальную машину
+git brunch morren - создание доп. ветки
+git checkout morren - переключение на эту ветку с ветки master
+git add -a - добавление новых файлов в index 
+git commit -m "description" - добавление коммита
+git checkout main - переход в ветку main
+git merge morren - соединение ветки main с morren
+git pull - за нас сливает оставшиеся коммиты, если таковы имеются, в текущую ветку
+git push - выгрузка локального репозитория в удаленный
+
+.gitignore - служит для игнорирования git'ом определенных файлов, директорий, которые будут написаны в этом файле
