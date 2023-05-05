@@ -12,6 +12,7 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
             while (true)
             {
                 Console.Clear();
+
                 Console.Write("Введите математическое выражение: ");
 
                 string line = Console.ReadLine();
@@ -30,6 +31,7 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                 ChecksExpressionsForLetters(Elements, args);
 
                 Stack<string> Operation = new Stack<string>();
+
                 Stack<double> Numbers = new Stack<double>();
 
                 TranslationOfExpressionToReversePolish(Elements, Operation, Numbers, args);
@@ -43,13 +45,15 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                     Console.Write(sumbol);
                 }
 
-                foreach (double ResultNumbers in Numbers)
+                foreach (double resultNumbers in Numbers)
                 {
-                    Console.Write("=" + ResultNumbers);
+                    Console.Write("=" + resultNumbers);
                 }
 
                 Console.ReadKey();
+
                 Console.Clear();
+
                 Console.Write("Для повторного ввода операции нажмите Enter, для завершения приложения Esc.");
 
                 if (Console.ReadKey().Key == ConsoleKey.Escape)
@@ -61,98 +65,126 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
         }
 
-        static double ApplyOperation(Stack<string> Operation, Stack<double> Numbers, string[] args)
+        /// <summary>
+        /// Метод вычисляющий выражение.
+        /// </summary>
+        /// <param name="operation">Стек хранящий операции.</param>
+        /// <param name="numbers">Стек хранящий числа.</param>
+        /// <param name="args">При делении на ноль метод выведет ошибку и возвращается в Main(agrs).</param>
+        /// <returns></returns>
+        static double ApplyOperation(Stack<string> operation, Stack<double> numbers, string[] args)
         {
-            double CalculationResult = 0;
+            double calculationResult = 0;
 
-            for (int iteration = 0; iteration < Operation.Count; iteration++)
+            for (int iteration = 0; iteration < operation.Count; iteration++)
             {
-                string CheckingTheOperation = Operation.Peek();
+                string checkingTheOperation = operation.Peek();
 
-                if (CheckingTheOperation == "(")
+                if (checkingTheOperation == "(")
                 {
                     break;
                 }
 
-                string UpperOperation = Operation.Pop();
+                string upperOperation = operation.Pop();
 
-                double FirstNumbers = Numbers.Pop();
+                double firstNumbers = numbers.Pop();
 
-                double SecondNumbers = Numbers.Pop();
+                double secondNumbers = numbers.Pop();
 
-                switch (UpperOperation)
+                switch (upperOperation)
                 {
                     case "+":
 
-                        CalculationResult = FirstNumbers + SecondNumbers;
+                        calculationResult = firstNumbers + secondNumbers;
 
-                        Numbers.Push(CalculationResult);
+                        numbers.Push(calculationResult);
+
                         break;
 
                     case "-":
 
-                        CalculationResult = SecondNumbers - FirstNumbers;
+                        calculationResult = secondNumbers - firstNumbers;
 
-                        Numbers.Push(CalculationResult);
+                        numbers.Push(calculationResult);
+
                         break;
 
                     case "*":
 
-                        CalculationResult = FirstNumbers * SecondNumbers;
+                        calculationResult = firstNumbers * secondNumbers;
 
-                        Numbers.Push(CalculationResult);
+                        numbers.Push(calculationResult);
+
                         break;
 
                     case "/":
 
-                        if (FirstNumbers == 0)
+                        if (firstNumbers == 0)
                         {
                             Console.WriteLine("Деление на 0!!!\n");
+
                             Console.ReadKey();
+
                             Console.Clear();
 
                             Main(args);
                         }
 
-                        CalculationResult = SecondNumbers / FirstNumbers;
+                        calculationResult = secondNumbers / firstNumbers;
 
-                        Numbers.Push(CalculationResult);
+                        numbers.Push(calculationResult);
+
                         break;
                 }
 
             }
 
-            return CalculationResult;
+            return calculationResult;
         }
 
-        static void TranslationOfExpressionToReversePolish(List<char> Elements, Stack<string> Operation, Stack<double> Numbers, string[] args)
+        /// <summary>
+        /// Метод проходит по листу и распределяет числа в стек к числам, а элементы операций и скобки в стек к операциям. 
+        /// Так же в методе имеется вызываемый в определенных случаях метод (ApplyOperation).
+        /// </summary>
+        /// <param name="elements">Лист хранящий каждый символ.</param>
+        /// <param name="operation">Стек необходимый для добавления в него всех нужных операций и скобок.</param>
+        /// <param name="numbers">Стек необходимый для добавления в него всех нужных чисел и запятых.</param>
+        /// <param name="args">При делении на ноль метод выведет ошибку и возвращается в Main(agrs).</param>
+        static void TranslationOfExpressionToReversePolish(List<char> elements, Stack<string> operation, Stack<double> numbers, string[] args)
         {
             var result = "";
 
-            for (int iteration = 0; iteration < Elements.Count; iteration++)
+            for (int iteration = 0; iteration < elements.Count; iteration++)
             {
-                if (!(Operation.Contains("(")))
+                if (!(operation.Contains("(")))
                 {
-                    if (Operation.Count == 1 && Numbers.Count == 2 && (Operation.Contains("*") || Operation.Contains("/")))
+                    if (iteration == 0 && elements[iteration] == '-')
                     {
-                        ApplyOperation(Operation, Numbers, args);
+                        result += "-";
+
+                        continue;
                     }
 
-                    if (Elements[iteration] == '+' || Elements[iteration] == '-' || Elements[iteration] == '*' || Elements[iteration] == '/')
+                    if (operation.Count == 1 && numbers.Count == 2 && (operation.Contains("*") || operation.Contains("/")))
+                    {
+                        ApplyOperation(operation, numbers, args);
+                    }
+
+                    if (elements[iteration] == '+' || elements[iteration] == '-' || elements[iteration] == '*' || elements[iteration] == '/')
                     {
                         if (result != "")
                         {
-                            Numbers.Push(Convert.ToDouble(result));
+                            numbers.Push(Convert.ToDouble(result));
 
                             result = "";
 
-                            if (Operation.Count >= 1)
+                            if (operation.Count >= 1)
                             {
-                                string UpperOperation = Operation.Peek();
+                                string UpperOperation = operation.Peek();
 
-                                if (Operation.Contains("*") && Numbers.Count >= 2 || Operation.Contains("/") && Numbers.Count >= 2 && UpperOperation != "(")
+                                if (operation.Contains("*") && numbers.Count >= 2 || operation.Contains("/") && numbers.Count >= 2 && UpperOperation != "(")
                                 {
-                                    ApplyOperation(Operation, Numbers, args);
+                                    ApplyOperation(operation, numbers, args);
                                 }
 
                                 result = "";
@@ -160,35 +192,35 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                         }
 
-                        result += Elements[iteration];
+                        result += elements[iteration];
 
-                        if ((result == "-" || result == "+" || result == ")") && Numbers.Count >= 2)
+                        if ((result == "-" || result == "+" || result == ")") && numbers.Count >= 2)
                         {
-                            ApplyOperation(Operation, Numbers, args);
+                            ApplyOperation(operation, numbers, args);
                         }
 
-                        Operation.Push(result);
+                        operation.Push(result);
 
                         result = "";
                     }
 
-                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
+                    if ((elements[iteration] >= '0' && elements[iteration] <= '9') || elements[iteration] == '.' || elements[iteration] == ',')
                     {
-                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
+                        if (elements[iteration] == '.' || elements[iteration] == ',')
                         {
                             result += ",";
                         }
 
                         else
                         {
-                            result += Elements[iteration];
+                            result += elements[iteration];
                         }
 
-                        if (iteration + 1 != Elements.Count)
+                        if (iteration + 1 != elements.Count)
                         {
-                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/')
+                            if (elements[iteration + 1] == '+' || elements[iteration + 1] == '-' || elements[iteration + 1] == '*' || elements[iteration + 1] == '/')
                             {
-                                Numbers.Push(Convert.ToDouble(result));
+                                numbers.Push(Convert.ToDouble(result));
 
                                 result = "";
                             }
@@ -199,46 +231,46 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                 }
 
-                if (Elements[iteration] == '(')
+                if (elements[iteration] == '(')
                 {
-                    Operation.Push("(");
+                    operation.Push("(");
                 }
 
-                if (Elements[iteration] == ')')
+                if (elements[iteration] == ')')
                 {
-                    ApplyOperation(Operation, Numbers, args);
+                    ApplyOperation(operation, numbers, args);
 
-                    if (Operation.Peek() == "(")
+                    if (operation.Peek() == "(")
                     {
-                        Operation.Pop();
+                        operation.Pop();
                     }
 
                 }
 
-                if (Operation.Contains("("))
+                if (operation.Contains("("))
                 {
-                    if (Elements[iteration] == '-' && Elements[iteration - 1] == '(')
+                    if (elements[iteration] == '-' && elements[iteration - 1] == '(')
                     {
-                        result += Elements[iteration];
+                        result += elements[iteration];
                     }
 
-                    if ((Elements[iteration] >= '0' && Elements[iteration] <= '9') || Elements[iteration] == '.' || Elements[iteration] == ',')
+                    if ((elements[iteration] >= '0' && elements[iteration] <= '9') || elements[iteration] == '.' || elements[iteration] == ',')
                     {
-                        if (Elements[iteration] == '.' || Elements[iteration] == ',')
+                        if (elements[iteration] == '.' || elements[iteration] == ',')
                         {
                             result += ",";
                         }
 
                         else
                         {
-                            result += Elements[iteration];
+                            result += elements[iteration];
                         }
 
-                        if (iteration + 1 != Elements.Count)
+                        if (iteration + 1 != elements.Count)
                         {
-                            if (Elements[iteration + 1] == '+' || Elements[iteration + 1] == '-' || Elements[iteration + 1] == '*' || Elements[iteration + 1] == '/' || Elements[iteration + 1] == '(' || Elements[iteration + 1] == ')')
+                            if (elements[iteration + 1] == '+' || elements[iteration + 1] == '-' || elements[iteration + 1] == '*' || elements[iteration + 1] == '/' || elements[iteration + 1] == '(' || elements[iteration + 1] == ')')
                             {
-                                Numbers.Push(Convert.ToDouble(result));
+                                numbers.Push(Convert.ToDouble(result));
 
                                 result = "";
                             }
@@ -247,9 +279,9 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
                     }
 
-                    if ((Elements[iteration] == '*' || Elements[iteration] == '/' || Elements[iteration] == '-' || Elements[iteration] == '+') && Elements[iteration - 1] != '(')
+                    if ((elements[iteration] == '*' || elements[iteration] == '/' || elements[iteration] == '-' || elements[iteration] == '+') && elements[iteration - 1] != '(')
                     {
-                        Operation.Push(Elements[iteration].ToString());
+                        operation.Push(elements[iteration].ToString());
                     }
 
                 }
@@ -258,27 +290,34 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
 
             if (result != "")
             {
-                Numbers.Push(Convert.ToDouble(result));
+                numbers.Push(Convert.ToDouble(result));
             }
 
-            ApplyOperation(Operation, Numbers, args);
+            ApplyOperation(operation, numbers, args);
         }
 
-        static void ChecksExpressionsForLetters(List<char> Elements, string[] args)
+        /// <summary>
+        /// Метод проверяет выражение на наличие слов и посторонних символов (не использующееся в математических выражениях).
+        /// </summary>
+        /// <param name="elements">Лист хранящий каждый символ.</param>
+        /// <param name="args">При нахождении посторонних символов выведет ошибку и возвращается в Main(agrs).</param>
+        static void ChecksExpressionsForLetters(List<char> elements, string[] args)
         {
-            for (int iteration = 0; iteration < Elements.Count; iteration++)
+            for (int iteration = 0; iteration < elements.Count; iteration++)
             {
-                if (Elements[iteration] == '-' || Elements[iteration] == '+' || Elements[iteration] == '/' || Elements[iteration] == '*' || Elements[iteration] == '(' || Elements[iteration] == ')' || Elements[iteration] == '.' || Elements[iteration] == ',')
+                if (elements[iteration] == '-' || elements[iteration] == '+' || elements[iteration] == '/' || elements[iteration] == '*' || elements[iteration] == '(' || elements[iteration] == ')' || elements[iteration] == '.' || elements[iteration] == ',')
                 {
                     continue;
                 }
 
-                if (!double.TryParse(Elements[iteration].ToString(), out _))
+                if (!double.TryParse(elements[iteration].ToString(), out _))
                 {
-                    Console.WriteLine("Пиши цифирки!");
+                    Console.WriteLine("Ошибка!!! Не удалось распознать выражение!");
+
                     Console.ReadKey();
 
                     Main(args);
+
                     continue;
                 }
 
