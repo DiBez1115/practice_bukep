@@ -109,7 +109,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\BUKEP.Student.Calculator\BUKEP.Student.Calculator.csproj">
+    <ProjectReference Include="..\BUKEP.Student.Calculator\BUKEP.Student.Calculator.csproj">
       <Project>{deb520e5-f90b-4e45-aca1-770b23c90087}</Project>
       <Name>BUKEP.Student.Calculator</Name>
     </ProjectReference>
