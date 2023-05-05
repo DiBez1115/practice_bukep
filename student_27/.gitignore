@@ -1,6 +1,7 @@
 BUKEP.Student.WindowsCalculator\.vs
 BUKEP.Student.Calculator\.vs
 *.suo
+.suo
 *.user
 _ReSharper.*
 bin
