@@ -1,0 +1,8 @@
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe.config
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\bin\Debug\ConsoleCalculator.exe
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\bin\Debug\ConsoleCalculator.pdb
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\obj\Debug\BUKEP.Student.ConsoleCalculator.csproj.AssemblyReference.cache
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\obj\Debug\BUKEP.Student.ConsoleCalculator.csproj.SuggestedBindingRedirects.cache
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\obj\Debug\BUKEP.Student.ConsoleCalculator.csproj.CoreCompileInputs.cache
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\obj\Debug\ConsoleCalculator.exe
+C:\Users\morren\source\repos\practice_bukep\student_299\BUKEP.Student.ConsoleCalculator\ConsoleCalculator\obj\Debug\ConsoleCalculator.pdb

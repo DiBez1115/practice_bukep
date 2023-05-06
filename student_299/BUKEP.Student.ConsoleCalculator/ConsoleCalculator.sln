@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33627.172
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.ConsoleCalculator", "BUKEP.Student.ConsoleCalculator\BUKEP.Student.ConsoleCalculator.csproj", "{7AF45ECF-FB75-4CA0-B335-B8E90B61222F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.ConsoleCalculator", "ConsoleCalculator\BUKEP.Student.ConsoleCalculator.csproj", "{978340A3-A1D9-4F3D-BA17-5F340CF9B578}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{7AF45ECF-FB75-4CA0-B335-B8E90B61222F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AF45ECF-FB75-4CA0-B335-B8E90B61222F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AF45ECF-FB75-4CA0-B335-B8E90B61222F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AF45ECF-FB75-4CA0-B335-B8E90B61222F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{978340A3-A1D9-4F3D-BA17-5F340CF9B578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{978340A3-A1D9-4F3D-BA17-5F340CF9B578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{978340A3-A1D9-4F3D-BA17-5F340CF9B578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{978340A3-A1D9-4F3D-BA17-5F340CF9B578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {CB950931-6D21-4C25-BE73-6FBC8DC999DC}
+		SolutionGuid = {7B701116-9F8E-4220-85D5-1E04E2D636B8}
 	EndGlobalSection
 EndGlobal
