@@ -97,7 +97,7 @@ namespace BUKEP.Student.ConsoleCalculator
             {
                 Console.WriteLine($"{number_1}{operation}{number_2}={result}");
             }
-            Console.Write("Для продолжения нажмите Enter для выхода нажмите любую клавишу на клавиатуре.");
+            Console.Write("Для продолжения нажмите Enter. Для выхода нажмите ESCAPE на клавиатуре.");
             push_key = Console.ReadKey().Key;
         }
     }
