@@ -31,7 +31,7 @@ namespace BUKEP.Student.ConsoleCalculator
 
                     }
 
-                    Console.Write("Результат: "+ expression + "=" + CalculatingExpressions.PassTheExpressionToCalculatingExpressions(expression));
+                    Console.Write("Результат: "+ expression + "=" + CalculatingExpressions.PasstheExpressionToCalculatingExpressions(expression));
 
                     Console.ReadKey();
 

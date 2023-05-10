@@ -6,44 +6,48 @@ using System.Threading.Tasks;
 
 namespace BUKEP.Student.Calculator
 {
+
+    /// <summary>
+    /// Класс для вычисления математических выражений.
+    /// </summary>
     public static class CalculatingExpressions
     {
 
         /// <summary>
-        /// Данный метод получает строку, где в дальнейшем разбивает её на символы и записывает в лист, а далее передает данный лист методам для вычисления выражения.
+        /// Интерпретатор математических выражений.
         /// </summary>
         /// <param name="expression">Строка получаемая от пользователя.</param>
         /// <returns>
         /// Метод возвращает строку с результатом вычисления.
         /// </returns>
-        public static string PassTheExpressionToCalculatingExpressions(string expression)
+        public static string PasstheExpressionToCalculatingExpressions(string expression)
         {
             string line = expression.Replace('÷', '/').Replace('×', '*');
 
             string outputResult;
 
-            List<char> Elements = new List<char>();
+            List<char> elements = new List<char>();
 
-            Stack<string> Operations = new Stack<string>();
+            Stack<string> operations = new Stack<string>();
 
-            Stack<double> Numbers = new Stack<double>();
+            Stack<double> numbers = new Stack<double>();
 
-            if (CheckingCorrectnessTheExpression(line) == true)
+            if (CheckingCorrectnesstheExpression(line) == true)
             {
                 foreach (char symbol in line)
                 {
                     if (symbol != ' ')
                     {
-                        Elements.Add(symbol);
+                        elements.Add(symbol);
                     }
 
                 }
 
-                TranslationOfExpressionToReversePolish(Elements, Operations, Numbers);
+                ReversePolishRecording(elements, operations, numbers);
 
-                CalculateTheExpression(Operations, Numbers);
+                CalculatetheExpression(operations, numbers);
 
-                outputResult = Numbers.Pop().ToString();
+                outputResult = numbers.Pop().ToString();
             }
 
             else
@@ -55,15 +59,12 @@ namespace BUKEP.Student.Calculator
         }
 
         /// <summary>
-        /// В данном методе реализован алгоритм необходимый для вычисления выражения. 
+        /// Вычислить выражение. 
         /// </summary>
         /// <param name="operations">Стек содержащий элементы операций и скобок.</param>
         /// <param name="numbers">Стек содержащий элементы чисел.</param>
-        /// <returns></returns>
-        public static void CalculateTheExpression(Stack<string> operations, Stack<double> numbers)
+        public static void CalculatetheExpression(Stack<string> operations, Stack<double> numbers)
         {
-            double outputResult = 0;
-
             for (int iteration = 0; iteration < operations.Count; iteration++)
             {
                 string checkingOperation = operations.Peek();
@@ -79,8 +80,11 @@ namespace BUKEP.Student.Calculator
 
                 double secondNumbers = numbers.Pop();
 
+                double outputResult;
+
                 switch (upperOperation)
                 {
+
                     case "+":
 
                         outputResult = firstNumbers + secondNumbers;
@@ -127,13 +131,12 @@ namespace BUKEP.Student.Calculator
         }
 
         /// <summary>
-        /// Данный метод проходит по листу и распределяет числа в стек к числам, а элементы операций и скобки в стек к операциям. 
-        /// Так же в методе имеется вызываемый в определенных случаях метод (CalculateTheExpression).
+        /// Алгоритм обратной польской записи распределяющая элементы по стекам.
         /// </summary>
         /// <param name="elements">Лист, который содержит выражение разбитое на символы.</param>
         /// <param name="operations">Стек в который будут передаваться элементы операций и скобок.</param>
         /// <param name="numbers">Стек в который будут передаваться элементы чисел.</param>
-        public static void TranslationOfExpressionToReversePolish(List<char> elements, Stack<string> operations, Stack<double> numbers)
+        public static void ReversePolishRecording(List<char> elements, Stack<string> operations, Stack<double> numbers)
         {
             var result = "";
 
@@ -155,7 +158,7 @@ namespace BUKEP.Student.Calculator
 
                     if (operations.Count == 1 && numbers.Count == 2 && (operations.Contains("*") || operations.Contains("/") || operations.Contains("^")))
                     {
-                        CalculateTheExpression(operations, numbers);
+                        CalculatetheExpression(operations, numbers);
                     }
 
                     if (elements[iteration] == '+' || elements[iteration] == '-' || elements[iteration] == '*' || elements[iteration] == '/')
@@ -172,7 +175,7 @@ namespace BUKEP.Student.Calculator
 
                                 if ((operations.Contains("*") && numbers.Count >= 2) || operations.Contains("/") && numbers.Count >= 2 && topOperation != "(")
                                 {
-                                    CalculateTheExpression(operations, numbers);
+                                    CalculatetheExpression(operations, numbers);
                                 }
 
                                 result = "";
@@ -184,7 +187,7 @@ namespace BUKEP.Student.Calculator
 
                         if ((result == "-" || result == "+" || result == ")") && numbers.Count >= 2)
                         {
-                            CalculateTheExpression(operations, numbers);
+                            CalculatetheExpression(operations, numbers);
                         }
 
                         operations.Push(result);
@@ -212,7 +215,7 @@ namespace BUKEP.Student.Calculator
 
                                 if (operations.Count != 0 && operations.Peek() == "^")
                                 {
-                                    CalculateTheExpression(operations, numbers);
+                                    CalculatetheExpression(operations, numbers);
                                 }
 
                                 result = "";
@@ -231,7 +234,7 @@ namespace BUKEP.Student.Calculator
 
                 if (elements[iteration] == ')')
                 {
-                    CalculateTheExpression(operations, numbers);
+                    CalculatetheExpression(operations, numbers);
 
                     if (operations.Peek() == "(")
                     {
@@ -272,7 +275,7 @@ namespace BUKEP.Student.Calculator
 
                                 if (operations.Peek() == "^")
                                 {
-                                    CalculateTheExpression(operations, numbers);
+                                    CalculatetheExpression(operations, numbers);
                                 }
 
                                 result = "";
@@ -296,19 +299,19 @@ namespace BUKEP.Student.Calculator
                 numbers.Push(Convert.ToDouble(result));
             }
 
-            CalculateTheExpression(operations, numbers);
+            CalculatetheExpression(operations, numbers);
         }
 
         /// <summary>
-        /// В данном методе получаемая строка проверяется на корректность записи.
-        /// Пример: Если пользователь введёт (8+3-) и нажмет кнопку "=", то программа продолжит работать и не будет вычислять введенное выражение.
+        /// Проверка на корректность записи.
+        /// Пример: Пользователь ввёл "8 + 3 -" и нажмет кнопку "=", то программа не будет вычислять введенное выражение.
         /// </summary>
         /// <param name="expression">Получаемая от пользователя строка.</param>
         /// <returns>
         /// Программа возвращает значение tpue, если в выражении все написано корректно.
-        /// А если выражение будет написано не корректно, то программа вернёт false.
+        /// Если выражение будет написано не корректно, то программа вернёт false.
         /// </returns>
-        public static bool CheckingCorrectnessTheExpression(string expression)
+        public static bool CheckingCorrectnesstheExpression(string expression)
         {
             bool verificationResult = true;
 
@@ -334,10 +337,9 @@ namespace BUKEP.Student.Calculator
         }
 
         /// <summary>
-        /// Метод проверяет выражение на наличие слов и посторонних символов (не использующееся в математических выражениях).
+        /// Метод проверяет выражение на наличие букв и посторонних символов.
         /// </summary>
-        /// <param name="elements">Лист хранящий каждый символ.</param>
-        /// <param name="args">При нахождении посторонних символов выведет ошибку и возвращается в Main(agrs).</param>
+        /// <param name="elements">Получаемая от пользователя строка.</param>
         public static bool ChecksExpressionsForLetters(string expression)
         {
             bool lettersInLine = false;
