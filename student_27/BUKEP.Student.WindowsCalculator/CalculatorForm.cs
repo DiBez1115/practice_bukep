@@ -150,7 +150,7 @@ namespace BUKEP.Student.WindowsCalculator
 
             DisplayedText.Clear();
 
-            DisplayedText.Text = CalculatingExpressions.PasstheExpressionToCalculatingExpressions(selectedNumbers);
+            DisplayedText.Text = Calculator.Calculator.CalculateMathematicalExpression(selectedNumbers);
 
             if (DisplayedText.Text == selectedNumbers)
             {

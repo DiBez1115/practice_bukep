@@ -18,7 +18,7 @@ namespace BUKEP.Student.ConsoleCalculator
 
                 string line = Console.ReadLine();
                 
-                if (CalculatingExpressions.ChecksExpressionsForLetters(line) == false)
+                if (Calculator.Calculator.CheckIfLettersInExpression(line) == false)
                 {
                     string expression = "";
 
@@ -31,7 +31,7 @@ namespace BUKEP.Student.ConsoleCalculator
 
                     }
 
-                    Console.Write("Результат: "+ expression + "=" + CalculatingExpressions.PasstheExpressionToCalculatingExpressions(expression));
+                    Console.Write("Результат: "+ expression + "=" + Calculator.Calculator.CalculateMathematicalExpression(expression));
 
                     Console.ReadKey();
 
