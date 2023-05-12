@@ -22,7 +22,7 @@ namespace BUKEP.Student.SharpInstructions
                     case "1":
                         while (true)
                         {
-                            Mortgage();
+                            IfElseStates();
 
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
@@ -88,7 +88,7 @@ namespace BUKEP.Student.SharpInstructions
         /// <summary>
         /// Сравнение двух чисел
         /// <summary>
-        static void Mortgage()
+        static void IfElseStates()
         {
             Console.Clear();
             Console.WriteLine("Программа для сравнивания двух чисел.");
