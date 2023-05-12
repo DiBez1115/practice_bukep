@@ -189,13 +189,13 @@ namespace BUKEP.Student.SharpInstructions
             Console.WriteLine("Через сколько выключить компьютер? (1. 30 мин, 2. 1 час, 3. 2 часа) ");
             Console.WriteLine("Для того чтобы отменить таймер выключения, введите off");
             string action = Console.ReadLine();
-            if (action == "off")
+            if (action.ToLower() == "off")
             {
                 Process.Start("cmd", "/c shutdown -a");
             }
             else
             {
-                switch (action.ToLower())
+                switch (action)
                 {
                     case "1":
                         Process.Start("cmd", "/c shutdown -s -f -t 1800");
