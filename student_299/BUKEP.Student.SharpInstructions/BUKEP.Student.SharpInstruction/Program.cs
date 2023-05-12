@@ -215,7 +215,6 @@ namespace BUKEP.Student.SharpInstructions
                 switch (action.ToLower())
                 {
                     case "1":
-
                         Process.Start("cmd", "/c shutdown -s -f -t 1800");
                         break;
                     case "2":
@@ -223,6 +222,10 @@ namespace BUKEP.Student.SharpInstructions
                         break;
                     case "3":
                         Process.Start("cmd", "/c shutdown -s -f -t 7200");
+                        break;
+
+                    default:
+                        Console.WriteLine("Неизвестная операция.");
                         break;
                 }
                 if(action == "off")
