@@ -16,72 +16,95 @@ namespace BUKEP.Student.SharpInstructions
 
                 Console.WriteLine("Для вызова выполняемой подпрограммы укажите ее номер и нажните Enter:\n1 - IF ELSE\n2 - WHILE\n3 - DO WHILE\n4 - FOR\n5 - FOREACH\n6 - SWITCH");
 
-                int answer = int.Parse(Console.ReadLine());
+                string answer = Console.ReadLine();
                 switch (answer)
                 {
-                    case 1:
+                    case "1":
                         while (true)
                         {
                             Mortgage();
+
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
                         }
                         break;
-                    case 2:
+                    case "2":
                         while (true)
                         {
                             GetWiki();
+
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
                         }
                         break;
-                    case 3:
+                    case "3":
                         while (true)
                         {
                             Console.Clear();
+
                             Console.Write("Для того чтобы использовать цикл DO WHILE, который выведет последовательно числа введите стартовое число: ");
                             int Start = int.Parse(Console.ReadLine());
+
                             Console.Write("Введите конечное число: ");
                             int End = int.Parse(Console.ReadLine());
+
                             Console.WriteLine($"Последовательность чисел от {Start} до {End+1}");
                             do
                             {
                                 Console.WriteLine(Start);
                             } while (Start++ <= End);
+
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
                         }
                         break;
-                    case 4:
+                    case "4":
                         while (true)
                         {
                             MultiplyTable();
+
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
                         }
                         break;
-                    case 5:
+                    case "5":
                         while (true)
                         {
                             TaskList();
+
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
                         }
                         break;
-                    case 6:
-                        Console.WriteLine("Case");
+                    case "6":
+                        while (true)
+                        {
+                            PCOffOn();
+
+                            Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape) break;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Неизвестная операция!");
                         break;
                 }
             }
         }
+
+        /// <summary>
+        /// Рассчет и вывод новой ежемесячной платы по ипотеке
+        /// <summary>
         static void Mortgage()
         {
             Console.Clear();
+            Console.WriteLine("Данная программа считает ежемесячную плату по кредиту в зависимости от того сколько вы внесли за этот мясяц.");
             Console.Write("Для того, чтобы посчитать вашу новую ежемесячную плату по кредиту, введите сколько денег вы внесли за этот месяц: ");
             float DepositMoney = float.Parse(Console.ReadLine());
 
@@ -102,7 +125,10 @@ namespace BUKEP.Student.SharpInstructions
             }
             Console.WriteLine($"Новая ставка по вашему кредиту - {MountMoney}");
         }
- 
+
+        /// <summary>
+        /// Получение и копирование ссылки в буфер обмена и открытие браузера
+        /// <summary>
         static void GetWiki()
         {
             Console.Clear();
@@ -124,6 +150,9 @@ namespace BUKEP.Student.SharpInstructions
             }
         }
 
+        /// <summary>
+        /// Вывод таблицы умножения
+        /// <summary>
         static void MultiplyTable()
         {
             Console.Clear();
@@ -138,6 +167,9 @@ namespace BUKEP.Student.SharpInstructions
             }
         }
 
+        /// <summary>
+        /// Ввод и вывод списка заданий пользователя
+        /// <summary>
         static void TaskList()
         {
             Console.Clear();
@@ -166,6 +198,43 @@ namespace BUKEP.Student.SharpInstructions
             {
                 Console.WriteLine("Введено неизвестное значение!");
             }
+        }
+
+        /// <summary>
+        /// Включение и отключение таймера завершения работы ПК
+        /// <summary>
+        static void PCOffOn()
+        {
+            Console.Clear();
+            while (true)
+            {
+                Console.WriteLine("Данная программа позволяет добавить таймер выключения компьютера. Для выхода введите 'q'");
+                Console.WriteLine("Через сколько выключить компьютер? (1. 30 мин, 2. 1 час, 3. 2 часа) ");
+                Console.WriteLine("Для того чтобы отменить таймер выключения, введите off");
+                string action = Console.ReadLine();
+                switch (action.ToLower())
+                {
+                    case "1":
+
+                        Process.Start("cmd", "/c shutdown -s -f -t 1800");
+                        break;
+                    case "2":
+                        Process.Start("cmd", "/c shutdown -s -f -t 3600");
+                        break;
+                    case "3":
+                        Process.Start("cmd", "/c shutdown -s -f -t 7200");
+                        break;
+                }
+                if(action == "off")
+                {
+                    Process.Start("cmd", "/c shutdown -a");
+                }
+                else if(action == "q")
+                {
+                    break;
+                }
+            }
+            
         }
     }
 }
