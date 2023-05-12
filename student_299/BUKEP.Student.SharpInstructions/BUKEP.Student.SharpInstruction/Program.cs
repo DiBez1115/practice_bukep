@@ -14,7 +14,6 @@ namespace BUKEP.Student.SharpInstructions
                 Console.Clear();
                 ConsoleKeyInfo key;
 
-
                 Console.WriteLine("Для вызова выполняемой подпрограммы укажите ее номер и нажните Enter:\n1 - IF ELSE\n2 - WHILE\n3 - DO WHILE\n4 - FOR\n5 - FOREACH\n6 - SWITCH");
 
                 int answer = int.Parse(Console.ReadLine());
@@ -39,13 +38,39 @@ namespace BUKEP.Student.SharpInstructions
                         }
                         break;
                     case 3:
-                        Console.WriteLine("Case");
+                        while (true)
+                        {
+                            Console.Clear();
+                            Console.Write("Для того чтобы использовать цикл DO WHILE, который выведет последовательно числа введите стартовое число: ");
+                            int start = int.Parse(Console.ReadLine());
+                            Console.Write("Введите конечное число: ");
+                            int end = int.Parse(Console.ReadLine());
+                            Console.WriteLine($"Последовательность чисел от {start} до {end+1}");
+                            do
+                            {
+                                Console.WriteLine(start);
+                            } while (start++ <= end);
+                            Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape) break;
+                        }
                         break;
                     case 4:
-                        Console.WriteLine("Case");
+                        while (true)
+                        {
+                            MultiplyTable();
+                            Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape) break;
+                        }
                         break;
                     case 5:
-                        Console.WriteLine("Case");
+                        while (true)
+                        {
+                            Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
+                            key = Console.ReadKey();
+                            if (key.Key == ConsoleKey.Escape) break;
+                        }
                         break;
                     case 6:
                         Console.WriteLine("Case");
@@ -91,10 +116,26 @@ namespace BUKEP.Student.SharpInstructions
                 {
                     Clipboard.Clear();
                     string link = $"https://ru.wikipedia.org/wiki/{data}";
-                    Console.WriteLine("Ваша ссылка находится в буфере обмена, зайдите в браузер и вставьте ее! :)");
+                    Console.WriteLine("Ваша ссылка находится в буфере обмена, вставьте ее! :)");
+                    Process.Start("http://google.com");
                     Clipboard.SetText(link);
                 }
             }
         }
+
+        static void MultiplyTable()
+        {
+            Console.Clear();
+            Console.WriteLine("Таблица умножения от 0 до 9: ");
+            for(int i = 0; i <= 10; i++)
+            {
+                for(int j = 1; j <= 10; j++)
+                {
+                    Console.WriteLine($"{i} * {j} = {i * j}");
+                }
+                Console.WriteLine();
+            }
+        }
+
     }
 }
