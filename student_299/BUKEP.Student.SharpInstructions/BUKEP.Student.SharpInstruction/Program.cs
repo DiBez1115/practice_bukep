@@ -137,7 +137,6 @@ namespace BUKEP.Student.SharpInstructions
             Console.Clear();
             Console.WriteLine("Проргамма для вывода списка умножения вашего числа на цифры.");
             Console.WriteLine("Введите любое число, для создания списка умножения на цифры.");
-            Console.WriteLine("Таблица умножения от 0 до 9: ");
             int user_number = int.Parse(Console.ReadLine());
             for (int i = 0; i <= 10; i++)
             {
