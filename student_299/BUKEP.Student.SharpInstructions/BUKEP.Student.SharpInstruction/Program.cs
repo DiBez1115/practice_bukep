@@ -42,20 +42,7 @@ namespace BUKEP.Student.SharpInstructions
                     case "3":
                         while (true)
                         {
-                            Console.Clear();
-
-                            Console.Write("Для того чтобы использовать цикл DO WHILE, который выведет последовательно числа введите стартовое число: ");
-                            int Start = int.Parse(Console.ReadLine());
-
-                            Console.Write("Введите конечное число: ");
-                            int End = int.Parse(Console.ReadLine());
-
-                            Console.WriteLine($"Последовательность чисел от {Start} до {End+1}");
-                            do
-                            {
-                                Console.WriteLine(Start);
-                            } while (Start++ <= End);
-
+                            DoWhileLoop();
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
@@ -99,31 +86,23 @@ namespace BUKEP.Student.SharpInstructions
         }
 
         /// <summary>
-        /// Рассчет и вывод новой ежемесячной платы по ипотеке
+        /// Сравнение двух чисел
         /// <summary>
         static void Mortgage()
         {
             Console.Clear();
-            Console.WriteLine("Данная программа считает ежемесячную плату по кредиту в зависимости от того сколько вы внесли за этот мясяц.");
-            Console.Write("Для того, чтобы посчитать вашу новую ежемесячную плату по кредиту, введите сколько денег вы внесли за этот месяц: ");
-            float DepositMoney = float.Parse(Console.ReadLine());
+            Console.WriteLine("Программа для сравнивания двух чисел.");
+            Console.Write("Введите число 1: ");
+            int number_1 = int.Parse(Console.ReadLine());
+            Console.Write("Введите число 2: ");
+            int number_2 = int.Parse(Console.ReadLine());
 
-            Console.Write("Укажите ваш текущую ежемесячную плату по кредиту: ");
-            float MountMoney = float.Parse(Console.ReadLine());
-
-            if ((MountMoney - DepositMoney) >= 10000)
+            if (number_1 < number_2) Console.WriteLine($"Число {number_1} меньше числа {number_2}");
+            else if (number_1 == number_2) Console.WriteLine($"Число {number_1} равно числу {number_2}");
+            else
             {
-                MountMoney -= 1500;
+                Console.WriteLine($"Число {number_2} больше числа {number_1}");
             }
-            else if(MountMoney < DepositMoney && (MountMoney - DepositMoney) <= 5000)
-            {
-                MountMoney -= 500;
-            }
-            else if (DepositMoney < MountMoney)
-            {
-                MountMoney += 500;
-            }
-            Console.WriteLine($"Новая ставка по вашему кредиту - {MountMoney}");
         }
 
         /// <summary>
@@ -156,14 +135,13 @@ namespace BUKEP.Student.SharpInstructions
         static void MultiplyTable()
         {
             Console.Clear();
+            Console.WriteLine("Проргамма для вывода списка умножения вашего числа на цифры.");
+            Console.WriteLine("Введите любое число, для создания списка умножения на цифры.");
             Console.WriteLine("Таблица умножения от 0 до 9: ");
-            for(int i = 0; i <= 10; i++)
+            int user_number = int.Parse(Console.ReadLine());
+            for (int i = 0; i <= 10; i++)
             {
-                for(int j = 1; j <= 10; j++)
-                {
-                    Console.WriteLine($"{i} * {j} = {i * j}");
-                }
-                Console.WriteLine();
+                Console.WriteLine($"{user_number} * {i} = {user_number * i}");
             }
         }
 
@@ -173,6 +151,7 @@ namespace BUKEP.Student.SharpInstructions
         static void TaskList()
         {
             Console.Clear();
+            Console.WriteLine("Программа для записи и вывода ваших заданий на день.");
             Console.Write("Сколько заданий вам требуется ввести: ");
             int CountOfTasks = int.Parse(Console.ReadLine());
 
@@ -206,12 +185,17 @@ namespace BUKEP.Student.SharpInstructions
         static void PCOffOn()
         {
             Console.Clear();
-            while (true)
+
+            Console.WriteLine("Данная программа позволяет добавить таймер выключения компьютера. Для выхода введите 'q'");
+            Console.WriteLine("Через сколько выключить компьютер? (1. 30 мин, 2. 1 час, 3. 2 часа) ");
+            Console.WriteLine("Для того чтобы отменить таймер выключения, введите off");
+            string action = Console.ReadLine();
+            if (action == "off")
             {
-                Console.WriteLine("Данная программа позволяет добавить таймер выключения компьютера. Для выхода введите 'q'");
-                Console.WriteLine("Через сколько выключить компьютер? (1. 30 мин, 2. 1 час, 3. 2 часа) ");
-                Console.WriteLine("Для того чтобы отменить таймер выключения, введите off");
-                string action = Console.ReadLine();
+                Process.Start("cmd", "/c shutdown -a");
+            }
+            else
+            {
                 switch (action.ToLower())
                 {
                     case "1":
@@ -228,16 +212,27 @@ namespace BUKEP.Student.SharpInstructions
                         Console.WriteLine("Неизвестная операция.");
                         break;
                 }
-                if(action == "off")
-                {
-                    Process.Start("cmd", "/c shutdown -a");
-                }
-                else if(action == "q")
-                {
-                    break;
-                }
             }
-            
+        }
+
+        /// <summary>
+        /// Вывод последовательности циклом Do While
+        /// <summary>
+        static void DoWhileLoop()
+        {
+            Console.Clear();
+
+            Console.Write("Для того чтобы использовать цикл DO WHILE, который выведет последовательно числа введите стартовое число: ");
+            int Start = int.Parse(Console.ReadLine());
+
+            Console.Write("Введите конечное число: ");
+            int End = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Последовательность чисел от {Start} до {End + 1}");
+            do
+            {
+                Console.WriteLine(Start);
+            } while (Start++ <= End);
         }
     }
 }
