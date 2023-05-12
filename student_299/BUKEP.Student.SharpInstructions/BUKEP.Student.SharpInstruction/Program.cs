@@ -42,14 +42,14 @@ namespace BUKEP.Student.SharpInstructions
                         {
                             Console.Clear();
                             Console.Write("Для того чтобы использовать цикл DO WHILE, который выведет последовательно числа введите стартовое число: ");
-                            int start = int.Parse(Console.ReadLine());
+                            int Start = int.Parse(Console.ReadLine());
                             Console.Write("Введите конечное число: ");
-                            int end = int.Parse(Console.ReadLine());
-                            Console.WriteLine($"Последовательность чисел от {start} до {end+1}");
+                            int End = int.Parse(Console.ReadLine());
+                            Console.WriteLine($"Последовательность чисел от {Start} до {End+1}");
                             do
                             {
-                                Console.WriteLine(start);
-                            } while (start++ <= end);
+                                Console.WriteLine(Start);
+                            } while (Start++ <= End);
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
@@ -67,6 +67,7 @@ namespace BUKEP.Student.SharpInstructions
                     case 5:
                         while (true)
                         {
+                            TaskList();
                             Console.WriteLine("Для повтора выполнения подпрограммы нажмите Enter, для возврата к списку подпрограмм нажмите Esc: ");
                             key = Console.ReadKey();
                             if (key.Key == ConsoleKey.Escape) break;
@@ -109,16 +110,16 @@ namespace BUKEP.Student.SharpInstructions
             while (true)
             {
                 Console.WriteLine("Для завершения работы программы введите 'quit': ");
-                string data = Console.ReadLine();
-                if (data == "quit") break;
+                string Data = Console.ReadLine();
+                if (Data == "quit") break;
 
                 else
                 {
                     Clipboard.Clear();
-                    string link = $"https://ru.wikipedia.org/wiki/{data}";
+                    string Link = $"https://ru.wikipedia.org/wiki/{Data}";
                     Console.WriteLine("Ваша ссылка находится в буфере обмена, вставьте ее! :)");
                     Process.Start("http://google.com");
-                    Clipboard.SetText(link);
+                    Clipboard.SetText(Link);
                 }
             }
         }
@@ -137,5 +138,34 @@ namespace BUKEP.Student.SharpInstructions
             }
         }
 
+        static void TaskList()
+        {
+            Console.Clear();
+            Console.Write("Сколько заданий вам требуется ввести: ");
+            int CountOfTasks = int.Parse(Console.ReadLine());
+
+            string[] Tasks = new string[CountOfTasks];
+
+            for(int i = 0; i < CountOfTasks; i++)
+            {
+                Console.WriteLine($"Введите задание {i+1}");
+                Tasks[i] = Console.ReadLine();
+            }
+
+            Console.Write("Хотите ли сейчас вывести все ваши задания?(да/нет) ");
+            string answer = Console.ReadLine();
+            if(answer.ToLower() == "да")
+            {
+                Console.WriteLine($"Ваши задания на {DateTime.Today}: ");
+                foreach (string task in Tasks)
+                {
+                    Console.WriteLine(task);
+                }
+            }
+            else if(answer.ToLower() != "нет")
+            {
+                Console.WriteLine("Введено неизвестное значение!");
+            }
+        }
     }
 }
