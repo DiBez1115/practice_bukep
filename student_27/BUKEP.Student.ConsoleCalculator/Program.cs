@@ -17,12 +17,14 @@ namespace BUKEP.Student.ConsoleCalculator
                 Console.Write("Введите математическое выражение: ");
 
                 string line = Console.ReadLine();
-                
-                if (Calculator.Calculator.CheckIfLettersInExpression(line) == false)
+
+                string lineNoSpase = line.Replace(" ", "");
+
+                if (Calculator.Calculator.CheckIfLettersInExpression(lineNoSpase) == false)
                 {
                     string expression = "";
 
-                    foreach (char symbol in line)
+                    foreach (char symbol in lineNoSpase)
                     {
                         if (symbol != ' ')
                         {
@@ -31,11 +33,24 @@ namespace BUKEP.Student.ConsoleCalculator
 
                     }
 
-                    Console.Write("Результат: "+ expression + "=" + Calculator.Calculator.CalculateMathematicalExpression(expression));
+                    if (expression != "")
+                    {
+                        Console.Write("Результат: " + expression + "=" + Calculator.Calculator.CalculateMathematicalExpression(expression));
 
-                    Console.ReadKey();
+                        Console.ReadKey();
 
-                    Console.Clear();
+                        Console.Clear();
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Ошибка!!! Не удалось распознать выражение!");
+
+                        Console.ReadKey();
+
+                        Console.Clear();
+                    }
+
                 }
 
                 else

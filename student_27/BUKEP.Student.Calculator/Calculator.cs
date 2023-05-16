@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BUKEP.Student.Calculator
 {
@@ -111,9 +112,24 @@ namespace BUKEP.Student.Calculator
 
                     case "/":
 
-                        outputResult = secondNumbers / firstNumbers;
+                        try
+                        {
+                            if (firstNumbers == 0)
+                            {
+                                throw new DivideByZeroException();
+                            }
 
-                        numbers.Push(outputResult);
+                            outputResult = secondNumbers / firstNumbers;
+
+                            numbers.Push(outputResult);
+                        }
+
+                        catch (DivideByZeroException ex)
+                        {
+                            MessageBox.Show($"{ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                            Environment.Exit(0);
+                        }
 
                         break;
 
@@ -138,98 +154,15 @@ namespace BUKEP.Student.Calculator
         /// <param name="numbers">Стек в который будут передаваться элементы чисел.</param>
         public static void AllocateElementsToStacks(List<char> elements, Stack<string> operations, Stack<double> numbers)
         {
-            var result = "";
+            string result = "";
 
             for (int iteration = 0; iteration < elements.Count; iteration++)
             {
-                if (!operations.Contains("("))
-                {
-                    if (iteration == 0 && elements[iteration] == '-')
-                    {
-                        result += "-";
-
-                        continue;
-                    }
-
-                    if (elements[iteration] == '^')
-                    {
-                        operations.Push("^");
-                    }
-
-                    if (operations.Count == 1 && numbers.Count == 2 && (operations.Contains("*") || operations.Contains("/") || operations.Contains("^")))
-                    {
-                        PerformOperation(operations, numbers);
-                    }
-
-                    if (elements[iteration] == '+' || elements[iteration] == '-' || elements[iteration] == '*' || elements[iteration] == '/')
-                    {
-                        if (result != "")
-                        {
-                            numbers.Push(Convert.ToDouble(result));
-
-                            result = "";
-
-                            if (operations.Count >= 1)
-                            {
-                                string topOperation = operations.Peek();
-
-                                if ((operations.Contains("*") && numbers.Count >= 2) || operations.Contains("/") && numbers.Count >= 2 && topOperation != "(")
-                                {
-                                    PerformOperation(operations, numbers);
-                                }
-
-                                result = "";
-                            }
-
-                        }
-
-                        result += elements[iteration];
-
-                        if ((result == "-" || result == "+" || result == ")") && numbers.Count >= 2)
-                        {
-                            PerformOperation(operations, numbers);
-                        }
-
-                        operations.Push(result);
-
-                        result = "";
-                    }
-
-                    if ((elements[iteration] >= '0' && elements[iteration] <= '9') || elements[iteration] == '.' || elements[iteration] == ',')
-                    {
-                        if (elements[iteration] == '.' || elements[iteration] == ',')
-                        {
-                            result += ",";
-                        }
-
-                        else
-                        {
-                            result += elements[iteration];
-                        }
-
-                        if (iteration + 1 != elements.Count)
-                        {
-                            if (elements[iteration + 1] == '+' || elements[iteration + 1] == '-' || elements[iteration + 1] == '*' || elements[iteration + 1] == '/' || elements[iteration + 1] == '^')
-                            {
-                                numbers.Push(Convert.ToDouble(result));
-
-                                if (operations.Count != 0 && operations.Peek() == "^")
-                                {
-                                    PerformOperation(operations, numbers);
-                                }
-
-                                result = "";
-                            }
-
-                        }
-
-                    }
-
-                }
-
                 if (elements[iteration] == '(')
                 {
                     operations.Push("(");
+
+                    continue;
                 }
 
                 if (elements[iteration] == ')')
@@ -239,57 +172,94 @@ namespace BUKEP.Student.Calculator
                     if (operations.Peek() == "(")
                     {
                         operations.Pop();
+
+                        continue;
                     }
 
                 }
 
-                if (operations.Contains("("))
+                if (iteration == 0 && elements[iteration] == '-')
                 {
-                    if (elements[iteration] == '^')
+                    result += "-";
+
+                    continue;
+                }
+
+                if (elements[iteration] == '-' && elements[iteration - 1] == '(')
+                {
+                    result += elements[iteration];
+                }
+
+                if (operations.Count == 1 && numbers.Count == 2 && elements[iteration] != '^' && (operations.Contains("*") || operations.Contains("/") || operations.Contains("^")))
+                {
+                    PerformOperation(operations, numbers);
+                }
+
+                if ((elements[iteration] >= '0' && elements[iteration] <= '9') || elements[iteration] == '.' || elements[iteration] == ',')
+                {
+                    if (elements[iteration] == '.' || elements[iteration] == ',')
                     {
-                        operations.Push("^");
+                        result += ",";
                     }
 
-                    if (elements[iteration] == '-' && elements[iteration - 1] == '(')
+                    else
                     {
                         result += elements[iteration];
                     }
 
-                    if ((elements[iteration] >= '0' && elements[iteration] <= '9') || elements[iteration] == '.' || elements[iteration] == ',')
+                    if (iteration + 1 != elements.Count)
                     {
-                        if (elements[iteration] == '.' || elements[iteration] == ',')
+                        if (elements[iteration + 1] == '+' || elements[iteration + 1] == '-' || elements[iteration + 1] == '*' || elements[iteration + 1] == '/' || elements[iteration + 1] == '(' || elements[iteration + 1] == ')' || elements[iteration + 1] == '^')
                         {
-                            result += ",";
-                        }
+                            numbers.Push(Convert.ToDouble(result));
 
-                        else
-                        {
-                            result += elements[iteration];
-                        }
-
-                        if (iteration + 1 != elements.Count)
-                        {
-                            if (elements[iteration + 1] == '+' || elements[iteration + 1] == '-' || elements[iteration + 1] == '*' || elements[iteration + 1] == '/' || elements[iteration + 1] == '(' || elements[iteration + 1] == ')' || elements[iteration + 1] == '^')
+                            if (operations.Count != 0)
                             {
-                                numbers.Push(Convert.ToDouble(result));
-
                                 if (operations.Peek() == "^")
                                 {
                                     PerformOperation(operations, numbers);
                                 }
 
-                                result = "";
                             }
-
+                            result = "";
                         }
 
                     }
 
-                    if ((elements[iteration] == '*' || elements[iteration] == '/' || elements[iteration] == '-' || elements[iteration] == '+') && elements[iteration - 1] != '(')
+                }
+
+                if ((elements[iteration] == '*' || elements[iteration] == '/' || elements[iteration] == '-' || elements[iteration] == '+' || elements[iteration] == '^') && elements[iteration - 1] != '(')
+                {
+                    if (result != "")
                     {
-                        operations.Push(elements[iteration].ToString());
+                        numbers.Push(Convert.ToDouble(result));
+
+                        result = "";
+
+                        if (operations.Count >= 1 && elements[iteration] != '^')
+                        {
+                            string topOperation = operations.Peek();
+
+                            if ((operations.Contains("*") && numbers.Count >= 2) || operations.Contains("/") && numbers.Count >= 2 && topOperation != "(")
+                            {
+                                PerformOperation(operations, numbers);
+                            }
+
+                            result = "";
+                        }
+
                     }
 
+                    result += elements[iteration];
+
+                    if ((result == "-" || result == "+" || result == ")") && numbers.Count >= 2)
+                    {
+                        PerformOperation(operations, numbers);
+                    }
+
+                    operations.Push(result);
+
+                    result = "";
                 }
 
             }
@@ -314,25 +284,28 @@ namespace BUKEP.Student.Calculator
         public static bool VerifyExpression(string expression)
         {
             bool verificationResult = true;
-
-            char lastElement = expression[expression.Length - 1];
-
-            if (lastElement == ')')
+            
+            if (expression.Length > 0)
             {
-                char elementDeforeBracket = expression[expression.Length - 2];
+                char lastElement = expression[expression.Length - 1];
 
-                if (elementDeforeBracket == '-' || elementDeforeBracket == '+' || elementDeforeBracket == '/' || elementDeforeBracket == '*')
+                if (lastElement == ')')
+                {
+                    char elementDeforeBracket = expression[expression.Length - 2];
+
+                    if (elementDeforeBracket == '-' || elementDeforeBracket == '+' || elementDeforeBracket == '/' || elementDeforeBracket == '*')
+                    {
+                        verificationResult = false;
+                    }
+
+                }
+
+                if (lastElement == '-' || lastElement == '+' || lastElement == '/' || lastElement == '*' || lastElement == '^' || lastElement == ',')
                 {
                     verificationResult = false;
                 }
 
             }
-
-            if (lastElement == '-' || lastElement == '+' || lastElement == '/' || lastElement == '*' || lastElement == '^' || lastElement == ',')
-            {
-                verificationResult = false;
-            }
-
             return verificationResult;
         }
 
@@ -346,7 +319,7 @@ namespace BUKEP.Student.Calculator
 
             foreach (var symbol in expression)
             {
-                if (symbol == '-' || symbol == '+' || symbol == '/' || symbol == '*' || symbol == '(' || symbol == ')' || symbol == '.' || symbol == ',')
+                if (symbol == '^' || symbol == '-' || symbol == '+' || symbol == '/' || symbol == '*' || symbol == '(' || symbol == ')' || symbol == '.' || symbol == ',')
                 {
                     continue;
                 }
