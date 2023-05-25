@@ -9,7 +9,7 @@
         </p>
         <p class="firs-row-button">
             <asp:Button class="buttons" ID="Button1" runat="server" Height="50px" Text="C" Width="50px" OnClick ="DeleteExpression"/>
-            <asp:Button class ="buttons" ID="Button2" runat="server" Height="50px" Text="⌫" Width="50px" OnClick ="DelitItem" />
+            <asp:Button class ="buttons" ID="Button2" runat="server" Height="50px" Text="⌫" Width="50px" OnClick ="DeleteItem" />
         </p>
         <p class="second-row-button">
             <asp:Button class ="buttons" ID="Button3" runat="server" Height="50px" Text="^" Width="50px" OnClick ="AddElement" />
