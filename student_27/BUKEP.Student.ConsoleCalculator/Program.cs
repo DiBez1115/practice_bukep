@@ -35,7 +35,20 @@ namespace BUKEP.Student.ConsoleCalculator
 
                     if (expression != "")
                     {
-                        Console.Write("Результат: " + expression + "=" + Calculator.Calculator.CalculateMathematicalExpression(expression));
+                        try
+                        {
+                            Console.Write("Результат: " + expression + "=" + Calculator.Calculator.CalculateMathematicalExpression(expression));
+                        }
+
+                        catch (DivideByZeroException)
+                        {
+                            Console.WriteLine("Ошибка!!! На ноль делить нельзя!");
+                        }
+
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Ошибка!!! Не удалось распознать выражение!");
+                        }
 
                         Console.ReadKey();
 

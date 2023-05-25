@@ -112,24 +112,14 @@ namespace BUKEP.Student.Calculator
 
                     case "/":
 
-                        try
+                        if (firstNumbers == 0)
                         {
-                            if (firstNumbers == 0)
-                            {
-                                throw new DivideByZeroException();
-                            }
-
-                            outputResult = secondNumbers / firstNumbers;
-
-                            numbers.Push(outputResult);
+                            throw new DivideByZeroException();
                         }
 
-                        catch (DivideByZeroException ex)
-                        {
-                            MessageBox.Show($"{ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        outputResult = secondNumbers / firstNumbers;
 
-                            Environment.Exit(0);
-                        }
+                        numbers.Push(outputResult);
 
                         break;
 
