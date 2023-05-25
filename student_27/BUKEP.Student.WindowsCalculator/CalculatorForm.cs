@@ -150,8 +150,25 @@ namespace BUKEP.Student.WindowsCalculator
 
             DisplayedText.Clear();
 
-            DisplayedText.Text = Calculator.Calculator.CalculateMathematicalExpression(selectedNumbers);
+            try
+            {
+                DisplayedText.Text = Calculator.Calculator.CalculateMathematicalExpression(selectedNumbers);
+            }
 
+            catch (DivideByZeroException)
+            {
+                MessageBox.Show($"Деление на 0!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DisplayedText.Text = "0";
+            }
+
+            catch (Exception ex)
+            {
+                MessageBox.Show($"{ex}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                DisplayedText.Text = "0";
+            }
+            
             if (DisplayedText.Text == selectedNumbers)
             {
                 CleanUpTheResult = false;

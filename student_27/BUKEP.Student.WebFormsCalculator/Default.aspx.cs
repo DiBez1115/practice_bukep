@@ -40,7 +40,16 @@ namespace BUKEP.Student.WebFormsCalculator
 
             if (expression.Value != "0")
             {
-                expression.Value += button.Text;
+                if (expression.Value == "Деление на 0!" || expression.Value == "Ошибка!!!")
+                {
+                    expression.Value = button.Text;
+                }
+
+                else
+                { 
+                    expression.Value += button.Text;
+                }
+
             }
 
             else
@@ -68,8 +77,22 @@ namespace BUKEP.Student.WebFormsCalculator
         protected void CalculateExpression(Object sender, EventArgs e)
         {
             var line = expression.Value;
+            
+            try
+            {
+                expression.Value = Calculator.Calculator.CalculateMathematicalExpression(line);
+            }
 
-            expression.Value = Calculator.Calculator.CalculateMathematicalExpression(line);
+            catch(DivideByZeroException)
+            {
+                expression.Value = "Деление на 0!";
+            }
+
+            catch (Exception)
+            {
+                expression.Value = "Ошибка!!!";
+            }
+     
         }
 
         protected void DeleteExpression(Object sender, EventArgs e)
