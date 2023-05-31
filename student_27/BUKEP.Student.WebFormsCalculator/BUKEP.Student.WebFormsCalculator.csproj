@@ -105,6 +105,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\CalculatorResultsDB.mdf" />
+    <Content Include="App_Data\CalculatorResultsDB_log.ldf">
+      <DependentUpon>CalculatorResultsDB.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -193,9 +197,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
@@ -208,6 +210,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BUKEP.Student.Calculator.Data\BUKEP.Student.Calculator.Data.csproj">
+      <Project>{d6fad30e-82c0-46b5-b448-0d85f047ac34}</Project>
+      <Name>BUKEP.Student.Calculator.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BUKEP.Student.Calculator\BUKEP.Student.Calculator.csproj">
       <Project>{deb520e5-f90b-4e45-aca1-770b23c90087}</Project>
       <Name>BUKEP.Student.Calculator</Name>

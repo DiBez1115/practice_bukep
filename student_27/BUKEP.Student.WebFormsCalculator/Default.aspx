@@ -7,6 +7,12 @@
         <p class="inputting-expression">
             <input class ="output" value ="0" id="expression" runat="server" type="text" readonly="readonly"/>
         </p>
+        <p class="data-base-controller">
+            <asp:Button class="buttons" ID="Button22" runat="server" Height="50px" Text="M" Width="50px" OnClick ="SavingResult"/>
+            <asp:Button class="buttons" ID="Button24" runat="server" Height="50px" Text="<S" Width="50px" OnClick ="OutputPreviousExpression" />
+            <asp:Button class ="buttons" ID="Button23" runat="server" Height="50px" Text="S>" Width="50px" OnClick ="OutputFollowingExpression"/>
+            <asp:Button class ="buttons" ID="Button25" runat="server" Height="50px" Text="MC" Width="50px" OnClick ="CleanUpHistory"/>
+        </p>
         <p class="firs-row-button">
             <asp:Button class="buttons" ID="Button1" runat="server" Height="50px" Text="C" Width="50px" OnClick ="DeleteExpression"/>
             <asp:Button class ="buttons" ID="Button2" runat="server" Height="50px" Text="⌫" Width="50px" OnClick ="DeleteItem" />
@@ -35,7 +41,7 @@
             <asp:Button class ="buttons" ID="Button17" runat="server" Height="50px" Text="1" Width="50px" OnClick ="AddElement" />
             <asp:Button class ="buttons" ID="Button18" runat="server" Height="50px" Text="+" Width="50px" OnClick ="AddElement"/>
         </p>
-        <p class="fourth-row-button">
+        <p class="sixth-row-button">
             <asp:Button class ="buttons" ID="Button19" runat="server" Height="50px" Text="0" Width="50px" OnClick ="AddElement"/>
             <asp:Button class ="buttons" ID="Button20" runat="server" Height="50px" Text="," Width="50px" OnClick ="AddElement"/>
             <asp:Button class ="buttons" ID="Button21" runat="server" Height="50px" Text="=" Width="50px" OnClick ="CalculateExpression"/>

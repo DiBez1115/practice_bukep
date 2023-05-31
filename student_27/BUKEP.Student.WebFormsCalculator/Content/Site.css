@@ -64,16 +64,16 @@ button {
     transform: translateY(2px);
 }
 
-.button-row-firs, .button-row-second, .button-row-third,
-.button-row-fourth, .button-row-fifth, .button-row-sixth {
+.firs-row-button, .second-row-button, .third-row-button,
+.fourth-row-button, .firth-row-button, .sixth-row-button, .data-base-controller {
     margin-top: 10px;
 }
 
-.button-row-firs {
+.firs-row-button {
     margin-right: 120px;
 }
 
-.button-row-sixth {
+.sixth-row-button {
     margin-left: 60px;
 }
 

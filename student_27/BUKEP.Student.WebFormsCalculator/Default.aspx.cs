@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using BUKEP.Student.Calculator.Data;
 
 namespace BUKEP.Student.WebFormsCalculator
 {
@@ -107,6 +108,97 @@ namespace BUKEP.Student.WebFormsCalculator
         protected void DeleteExpression(Object sender, EventArgs e)
         {
             expression.Value = "0";
+        }
+
+        protected void SavingResult (Object sender, EventArgs e)
+        {
+            var line = expression.Value;
+
+            CalculationResultRepository repository = new CalculationResultRepository();
+
+            CalculationResult result = new CalculationResult
+            {
+                Result = line
+            };
+
+            repository.SaveCalculationResult(result);
+        }
+
+        protected void OutputPreviousExpression (Object sender, EventArgs e)
+        {
+            CalculationResultRepository repository = new CalculationResultRepository();
+
+            List<CalculationResult> calculationResults = repository.GetCalculationResult();
+
+            int numberOfExpressions = calculationResults.Count - 1;
+
+            for (int i = 0; i <= numberOfExpressions; i++)
+            {
+                if (calculationResults[i].Result == expression.Value)
+                {
+                    try
+                    {
+                        expression.Value = calculationResults[i - 1].Result;
+                    }
+
+                    catch (Exception)
+                    {
+                        expression.Value = calculationResults[i].Result;
+                    }
+
+                    break;
+                }
+                
+                else if (calculationResults[i].Result != expression.Value && i == numberOfExpressions)
+                {
+                    expression.Value = calculationResults[i].Result;
+                }
+
+            }
+
+        }
+
+        protected void OutputFollowingExpression (Object sender, EventArgs e)
+        {
+            CalculationResultRepository repository = new CalculationResultRepository();
+
+            List<CalculationResult> calculationResults = repository.GetCalculationResult();
+
+            int numberOfExpressions = calculationResults.Count - 1;
+
+            for (int i = 0; i <= numberOfExpressions; i++)
+            {
+                if (calculationResults[i].Result == expression.Value)
+                {
+                    try
+                    {
+                        expression.Value = calculationResults[i + 1].Result;
+                    }
+
+                    catch (Exception)
+                    {
+                        expression.Value = calculationResults[i].Result;
+                    }
+
+                    break;
+                }
+
+                else if (calculationResults[i].Result != expression.Value && i == numberOfExpressions)
+                {
+                    expression.Value = calculationResults[i].Result;
+                }
+
+            }
+
+        }
+
+        protected void CleanUpHistory (Object sender, EventArgs e)
+        {
+            CalculationResultRepository repository = new CalculationResultRepository();
+
+            expression.Value = "0";
+
+            repository.ClearCalculationResults();
         }
 
     }

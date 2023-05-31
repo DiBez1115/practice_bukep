@@ -24,6 +24,42 @@ namespace BUKEP.Student.WebFormsCalculator
         protected global::System.Web.UI.HtmlControls.HtmlInputText expression;
 
         /// <summary>
+        /// Button22 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button22;
+
+        /// <summary>
+        /// Button24 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button24;
+
+        /// <summary>
+        /// Button23 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button23;
+
+        /// <summary>
+        /// Button25 элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button25;
+
+        /// <summary>
         /// Button1 элемент управления.
         /// </summary>
         /// <remarks>
