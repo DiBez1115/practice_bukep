@@ -1,7 +1,0 @@
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\bin\Debug\BUKEP.Student.SharpInstructions.exe.config
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\bin\Debug\BUKEP.Student.SharpInstructions.exe
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\bin\Debug\BUKEP.Student.SharpInstructions.pdb
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\obj\Debug\BUKEP.Student.SharpInstructions.csproj.AssemblyReference.cache
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\obj\Debug\BUKEP.Student.SharpInstructions.csproj.CoreCompileInputs.cache
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\obj\Debug\BUKEP.Student.SharpInstructions.exe
-C:\Users\Professional\source\repos\BUKEP.Student.SharpInstructions\BUKEP.Student.SharpInstructions\obj\Debug\BUKEP.Student.SharpInstructions.pdb

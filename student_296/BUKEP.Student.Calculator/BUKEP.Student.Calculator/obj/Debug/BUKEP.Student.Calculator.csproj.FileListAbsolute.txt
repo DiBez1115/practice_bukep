@@ -1,7 +1,0 @@
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe.config
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.exe
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\bin\Debug\BUKEP.Student.Calculator.pdb
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.AssemblyReference.cache
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.csproj.CoreCompileInputs.cache
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.exe
-C:\Users\Professional\source\repos\BUKEP.Student.Calculator\BUKEP.Student.Calculator\obj\Debug\BUKEP.Student.Calculator.pdb
