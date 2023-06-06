@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -8,15 +9,17 @@ using BUKEP.Student.Calculator.Data;
 
 namespace BUKEP.Student.WebFormsCalculator
 {
-
     public partial class _Default : Page
     {
+        readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        protected void AddElement(Object sender, EventArgs e)
+        public string line;
+
+        protected void btnAddElement_Click(Object sender, EventArgs e)
         {
             var button = (Button)sender;
 
-            var line = expression.Value;
+            line = expression.Value;
 
             int length = expression.Value.Length - 1;
 
@@ -30,7 +33,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
                 if (lastExpressionIsOperation)
                 {
-                    DeleteItem(sender, e);
+                    btnDeleteItem_Click(sender, e);
 
                     expression.Value += button.Text;
 
@@ -39,9 +42,9 @@ namespace BUKEP.Student.WebFormsCalculator
 
             }
 
-            if (expression.Value != "0")
+            if (line != "0")
             {
-                if (expression.Value == "Деление на 0!" || expression.Value == "Ошибка!!!")
+                if (line == "Деление на 0!" || line == "Ошибка!!!")
                 {
                     expression.Value = button.Text;
                 }
@@ -69,11 +72,11 @@ namespace BUKEP.Student.WebFormsCalculator
 
         }
 
-        protected void DeleteItem(Object sender, EventArgs e)
+        protected void btnDeleteItem_Click(Object sender, EventArgs e)
         {
-            var line = expression.Value;
-
             int length = expression.Value.Length;
+
+            line = expression.Value;
 
             expression.Value = null;
 
@@ -84,9 +87,9 @@ namespace BUKEP.Student.WebFormsCalculator
 
         }
 
-        protected void CalculateExpression(Object sender, EventArgs e)
+        protected void btnCalculateExpression_Click(Object sender, EventArgs e)
         {
-            var line = expression.Value;
+            line = expression.Value;
 
             try
             {
@@ -105,96 +108,100 @@ namespace BUKEP.Student.WebFormsCalculator
 
         }
 
-        protected void DeleteExpression(Object sender, EventArgs e)
+        protected void btnDeleteExpression_Click(Object sender, EventArgs e)
         {
             expression.Value = "0";
         }
 
-        protected void SavingResult (Object sender, EventArgs e)
+        protected void btnSavingResult_Click (Object sender, EventArgs e)
         {
-            var line = expression.Value;
+            decimal result = Convert.ToDecimal(expression.Value);
 
-            CalculationResultRepository repository = new CalculationResultRepository();
+            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
-            CalculationResult result = new CalculationResult
+            CalculationResult calculationResult = new CalculationResult
             {
-                Result = line
+                Result = result
             };
 
-            repository.SaveCalculationResult(result);
+            repository.SaveCalculationResult(calculationResult);
         }
 
-        protected void OutputPreviousExpression (Object sender, EventArgs e)
+        protected void btnOutputOfPreviousResult_Click (Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository();
+            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
             List<CalculationResult> calculationResults = repository.GetCalculationResult();
 
             int numberOfExpressions = calculationResults.Count - 1;
 
+            decimal result = Convert.ToDecimal(expression.Value);
+
             for (int i = 0; i <= numberOfExpressions; i++)
             {
-                if (calculationResults[i].Result == expression.Value)
+                if (calculationResults[i].Result == result)
                 {
                     try
                     {
-                        expression.Value = calculationResults[i - 1].Result;
+                        expression.Value = Convert.ToString(calculationResults[i - 1].Result);
                     }
 
                     catch (Exception)
                     {
-                        expression.Value = calculationResults[i].Result;
+                        expression.Value = Convert.ToString(calculationResults[i].Result);
                     }
 
                     break;
                 }
-                
-                else if (calculationResults[i].Result != expression.Value && i == numberOfExpressions)
+
+                else if (calculationResults[i].Result != result && i == numberOfExpressions)
                 {
-                    expression.Value = calculationResults[i].Result;
+                    expression.Value = Convert.ToString(calculationResults[i].Result);
                 }
 
             }
 
         }
 
-        protected void OutputFollowingExpression (Object sender, EventArgs e)
+        protected void btnOutputOfFollowingResult_Click(Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository();
+            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
             List<CalculationResult> calculationResults = repository.GetCalculationResult();
 
             int numberOfExpressions = calculationResults.Count - 1;
 
+            decimal result = Convert.ToDecimal(expression.Value);
+
             for (int i = 0; i <= numberOfExpressions; i++)
             {
-                if (calculationResults[i].Result == expression.Value)
+                if (calculationResults[i].Result == result)
                 {
                     try
                     {
-                        expression.Value = calculationResults[i + 1].Result;
+                        expression.Value = Convert.ToString(calculationResults[i + 1].Result);
                     }
 
                     catch (Exception)
                     {
-                        expression.Value = calculationResults[i].Result;
+                        expression.Value = Convert.ToString(calculationResults[i].Result);
                     }
 
                     break;
                 }
 
-                else if (calculationResults[i].Result != expression.Value && i == numberOfExpressions)
+                else if (calculationResults[i].Result != result && i == numberOfExpressions)
                 {
-                    expression.Value = calculationResults[i].Result;
+                    expression.Value = Convert.ToString(calculationResults[i].Result);
                 }
 
             }
 
         }
 
-        protected void CleanUpHistory (Object sender, EventArgs e)
+        protected void btnCleanUpHistory_Click (Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository();
+            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
             expression.Value = "0";
 

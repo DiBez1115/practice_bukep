@@ -8,17 +8,37 @@ using System.Data.SqlClient;
 
 namespace BUKEP.Student.Calculator.Data
 {
+
+    /// <summary>
+    /// Класс доступа к результатам вычисления.
+    /// </summary>
     public class CalculationResultRepository
     {
-        private readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnectionToCalculator"].ConnectionString;
+        /// <summary>
+        /// Cтрока подключения к базе данных.
+        /// </summary>
+        private readonly string connectionString;
 
+        /// <summary>
+        /// Создать новый экземпляр репозитория.
+        /// </summary>
+        /// <param name="connectionString">Строка подключения к базе данных.</param>
+        public CalculationResultRepository(string connectionString)
+        {
+            this.connectionString = connectionString;
+        }
+
+        /// <summary>
+        /// Сохранить результаты вычисления.
+        /// </summary>
+        /// <param name="result">Результат, который нужно сохранить.</param>
         public void SaveCalculationResult(CalculationResult result)
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string resultCalculator = result.Result;
+                string resultCalculator = Convert.ToString(result.Result).Replace(',', '.');
 
                 string request = $"INSERT INTO СalculationResults (Result) VALUES ('{resultCalculator}')";
 
@@ -31,6 +51,10 @@ namespace BUKEP.Student.Calculator.Data
 
         }
 
+        /// <summary>
+        /// Получить все результаты вычисления.
+        /// </summary>
+        /// <returns>Возвращает лист с результатами.</returns>
         public List<CalculationResult> GetCalculationResult()
         {
             List<CalculationResult> result = new List<CalculationResult>();
@@ -39,7 +63,7 @@ namespace BUKEP.Student.Calculator.Data
             {
                 connection.Open();
 
-                string request = "SELECT * FROM СalculationResults";
+                string request = "SELECT Id, Result FROM СalculationResults";
 
                 SqlCommand command = new SqlCommand(request, connection);
 
@@ -47,7 +71,13 @@ namespace BUKEP.Student.Calculator.Data
                 
                 while (reader.Read())
                 {
-                    result.Add(new CalculationResult { Result = reader.GetString(1) });
+                    result.Add(new CalculationResult 
+                    { 
+                        Id = reader.GetInt32(0), 
+
+                        Result = reader.GetDecimal(1) 
+                    });
+
                 }
 
                 connection.Close();
@@ -56,13 +86,16 @@ namespace BUKEP.Student.Calculator.Data
             return result;
         }
 
+        /// <summary>
+        /// Отчистить таблицу от данных.
+        /// </summary>
         public void ClearCalculationResults()
         {
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
 
-                string request = string.Format("TRUNCATE TABLE СalculationResults");
+                string request = string.Format("DELETE FROM СalculationResults");
 
                 SqlCommand command = new SqlCommand(request, connection);
 
