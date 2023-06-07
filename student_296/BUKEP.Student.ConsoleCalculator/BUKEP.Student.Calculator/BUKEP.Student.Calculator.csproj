@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5E71ABA7-D7D6-4FA0-B979-236E0AB763F1}</ProjectGuid>
+    <ProjectGuid>{08BAF005-D57A-486C-A1C7-60208B8CAFBF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>BUKEP.Student.Calculator</RootNamespace>
     <AssemblyName>BUKEP.Student.Calculator</AssemblyName>
