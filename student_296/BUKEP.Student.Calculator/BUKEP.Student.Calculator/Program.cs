@@ -197,7 +197,6 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         case '-': result = valueTwo - valueOne; break;
                         case '*': result = valueTwo * valueOne; break;
                         case '/': result = valueTwo / valueOne; break;
-                        case '^': result = double.Parse(Math.Pow(double.Parse(valueTwo.ToString()), double.Parse(valueOne.ToString())).ToString()); break;
                     }
                     temp.Push(result); 
                 }
