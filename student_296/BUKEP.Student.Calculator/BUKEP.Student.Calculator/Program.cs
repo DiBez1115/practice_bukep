@@ -18,6 +18,7 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
         {
             while (true)
             {
+                
                 Console.Write("Введите выражение: ");
                 Console.WriteLine(ReversePolishNotation.Calculate(Console.ReadLine()));
             }
