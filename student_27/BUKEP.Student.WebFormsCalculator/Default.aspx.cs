@@ -11,7 +11,9 @@ namespace BUKEP.Student.WebFormsCalculator
 {
     public partial class _Default : Page
     {
-        readonly string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        readonly static string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+
+        public CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
         public string line;
 
@@ -23,30 +25,37 @@ namespace BUKEP.Student.WebFormsCalculator
 
             int length = expression.Value.Length - 1;
 
-            bool addingOperation = button.Text == "+" || button.Text == "-"
-                || button.Text == "÷" || button.Text == "×" || button.Text == "^";
-
-            if (length > 1 && addingOperation)
+            if (button.Text == "+" || button.Text == "-" || button.Text == "÷" || button.Text == "×" || button.Text == "^")
             {
-                bool lastExpressionIsOperation = line[length] == '+' || line[length] == '-'
-                    || line[length] == '÷' || line[length] == '×' || line[length] == '^';
-
-                if (lastExpressionIsOperation)
+                if (line[length] == '+' || line[length] == '-' || line[length] == '÷' || line[length] == '×' || line[length] == '^')
                 {
-                    btnDeleteItem_Click(sender, e);
+                    expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
+                }
 
+                else if (IsErrorInExpressionLine())
+                {
+                    return;
+                }
+
+                else
+                {
                     expression.Value += button.Text;
+                }
+
+            }
+
+            else if(button.Text == ",")
+            {
+                if (IsErrorInExpressionLine())
+                {
+                    expression.Value = "0";
 
                     return;
                 }
 
-            }
-
-            if (line != "0")
-            {
-                if (line == "Деление на 0!" || line == "Ошибка!!!")
+                if (line[length] == ',')
                 {
-                    expression.Value = button.Text;
+                    expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
                 }
 
                 else
@@ -56,24 +65,61 @@ namespace BUKEP.Student.WebFormsCalculator
 
             }
 
-            else
+            else if (button.Text == "0")
             {
-                if (button.Text == ",")
+                if (length >= 0 && IsErrorInExpressionLine() == false)
                 {
-                    expression.Value += button.Text;
+                    if (line[length] == '0' && length == 0)
+                    {
+                        expression.Value = button.Text;
+
+                        return;
+                    }
+
+                    else if ((line[length - 1] == '+' || line[length - 1] == '-' || line[length - 1] == '÷' || line[length - 1] == '×' || line[length - 1] == '^') && line[length] == '0')
+                    {
+                        expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
+                    }
+
+                    else
+                    {
+                        expression.Value += button.Text;
+                    }
+
+                }
+
+                else 
+                {
+                    expression.Value = button.Text;
+                }
+
+            }
+
+            else if (button.Text != "0")
+            {
+                if (IsErrorInExpressionLine() || expression.Value == "0")
+                {
+                    expression.Value = button.Text;
                 }
 
                 else
                 {
-                    expression.Value = button.Text;
+                    expression.Value += button.Text;
                 }
-                
+
             }
 
         }
 
         protected void btnDeleteItem_Click(Object sender, EventArgs e)
         {
+            if (IsErrorInExpressionLine())
+            {
+                expression.Value = "0";
+
+                return;
+            }
+
             int length = expression.Value.Length;
 
             line = expression.Value;
@@ -115,9 +161,12 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnSavingResult_Click (Object sender, EventArgs e)
         {
-            decimal result = Convert.ToDecimal(expression.Value);
+            if (IsErrorInExpressionLine())
+            {
+                return;
+            }
 
-            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
+            decimal result = Convert.ToDecimal(expression.Value);
 
             CalculationResult calculationResult = new CalculationResult
             {
@@ -129,11 +178,16 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnOutputOfPreviousResult_Click (Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
-
             List<CalculationResult> calculationResults = repository.GetCalculationResult();
 
             int numberOfExpressions = calculationResults.Count - 1;
+
+            if (IsErrorInExpressionLine())
+            {
+                expression.Value = Convert.ToString(calculationResults[numberOfExpressions].Result);
+
+                return;
+            }
 
             decimal result = Convert.ToDecimal(expression.Value);
 
@@ -165,11 +219,16 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnOutputOfFollowingResult_Click(Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
-
             List<CalculationResult> calculationResults = repository.GetCalculationResult();
 
             int numberOfExpressions = calculationResults.Count - 1;
+
+            if (IsErrorInExpressionLine())
+            {
+                expression.Value = Convert.ToString(calculationResults[numberOfExpressions].Result);
+
+                return;
+            }
 
             decimal result = Convert.ToDecimal(expression.Value);
 
@@ -201,11 +260,23 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnCleanUpHistory_Click (Object sender, EventArgs e)
         {
-            CalculationResultRepository repository = new CalculationResultRepository(connectionString);
-
-            expression.Value = "0";
-
             repository.ClearCalculationResults();
+        }
+
+        /// <summary>
+        /// Проверяет есть ли в строке текст ошибки.
+        /// </summary>
+        /// <returns>Значение true, если в строке есть текст ошибки, в противном случае значение false.</returns>
+        private bool IsErrorInExpressionLine()
+        {
+            bool error = false;
+
+            if (expression.Value == "Деление на 0!" || expression.Value == "Ошибка!!!")
+            {
+                error = true;
+            }
+
+            return error;
         }
 
     }
