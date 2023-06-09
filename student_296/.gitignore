@@ -1,5 +1,7 @@
 BUKEP.Student.WindowsCalculator\.vs
 BUKEP.Student.Calculator\.vs
+BUKEP.Student.SharpInstructions\.vs
+BUKEP.Student.ConsoleCalculator\.vs
 *.suo
 .suo
 *.user
