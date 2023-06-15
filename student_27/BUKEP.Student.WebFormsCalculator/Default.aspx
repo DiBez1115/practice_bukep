@@ -5,6 +5,7 @@
     <div class="calculator">
     <h1 class="titel-web-api">Калькулятор</h1>
         <p class="inputting-expression">
+            <input type ="hidden" value ="null" id="idResult" runat="server" readonly="readonly"/>
             <input class ="output" value ="0" id="expression" runat="server" type="text" readonly="readonly"/>
         </p>
         <p class="data-base-controller">

@@ -15,6 +15,15 @@ namespace BUKEP.Student.WebFormsCalculator
     {
 
         /// <summary>
+        /// idResult элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden idResult;
+
+        /// <summary>
         /// expression элемент управления.
         /// </summary>
         /// <remarks>

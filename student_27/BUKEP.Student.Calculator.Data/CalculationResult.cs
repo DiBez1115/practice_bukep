@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 namespace BUKEP.Student.Calculator.Data
 {
     /// <summary>
-    /// Класс хранящий результаты вычисления калькулятора.
+    /// Результат вычисления
     /// </summary>
     public class CalculationResult
     {
         /// <summary>
-        /// Хранит ID результата.
+        /// Идентификатор
         /// </summary>
         public int Id { get; set; }
 
         /// <summary>
-        /// Хранит результат вычисления.
+        /// Результат
         /// </summary>
         public decimal Result { get; set; }
     }
