@@ -11,11 +11,21 @@ namespace BUKEP.Student.WebFormsCalculator
 {
     public partial class _Default : Page
     {
-        readonly static string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+        /// <summary>
+        /// Проверяет достоверность операции.
+        /// </summary>
+        /// <param name="operation">Операция переданная для проверки.</param>
+        /// <returns>Возвращает true если переданный элемент операция, в противном случае false.</returns>
+        private bool CheckOperationValidity(string operation)
+        {
+            return operation == "+" || operation == "-" || operation == "×" || operation == "÷" || operation == "^";
+        }
 
-        public CalculationResultRepository repository = new CalculationResultRepository(connectionString);
+        private readonly static string connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
 
-        public string line;
+        private CalculationResultRepository repository = new CalculationResultRepository(connectionString);
+
+        private string line;
 
         protected void btnAddElement_Click(Object sender, EventArgs e)
         {
@@ -25,13 +35,9 @@ namespace BUKEP.Student.WebFormsCalculator
 
             int length = expression.Value.Length - 1;
 
-            bool isPressedButtonOperation = button.Text == "+" || button.Text == "-" || button.Text == "÷" || button.Text == "×" || button.Text == "^";
-
-            bool isLastElementOperator = line[length] == '+' || line[length] == '-' || line[length] == '÷' || line[length] == '×' || line[length] == '^';
-
-            if (isPressedButtonOperation)
+            if (CheckOperationValidity(button.Text))
             {
-                if (isLastElementOperator)
+                if (CheckOperationValidity(line[length].ToString()))
                 {
                     expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
                 }
@@ -79,10 +85,8 @@ namespace BUKEP.Student.WebFormsCalculator
                     }
 
                     else if (length !=0 && line[length] == '0')
-                    {
-                        bool isPenultimateElementOperator = line[length - 1] == '+' || line[length - 1] == '-' || line[length - 1] == '÷' || line[length - 1] == '×' || line[length - 1] == '^';
-
-                        if (isPenultimateElementOperator)
+                    {                        
+                        if (CheckOperationValidity(line[length - 1].ToString()))
                         {
                             expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
                         }
