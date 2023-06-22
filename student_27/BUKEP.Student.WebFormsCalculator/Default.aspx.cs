@@ -25,13 +25,11 @@ namespace BUKEP.Student.WebFormsCalculator
 
         private CalculationResultRepository repository = new CalculationResultRepository(connectionString);
 
-        private string line;
-
         protected void btnAddElement_Click(Object sender, EventArgs e)
         {
             var button = (Button)sender;
 
-            line = expression.Value;
+            string line = expression.Value;
 
             int length = expression.Value.Length - 1;
 
@@ -42,7 +40,7 @@ namespace BUKEP.Student.WebFormsCalculator
                     expression.Value = expression.Value.Replace(expression.Value[length], Convert.ToChar(button.Text));
                 }
 
-                else if (IsErrorInExpressionLine())
+                else if (IsErrorInExpressionLine(expression.Value))
                 {
                     return;
                 }
@@ -56,7 +54,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
             else if(button.Text == ",")
             {
-                if (IsErrorInExpressionLine())
+                if (IsErrorInExpressionLine(expression.Value))
                 {
                     expression.Value = "0";
 
@@ -77,7 +75,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
             else if (button.Text == "0")
             {
-                if (length >= 0 && IsErrorInExpressionLine() == false)
+                if (length >= 0 && IsErrorInExpressionLine(expression.Value) == false)
                 {                   
                     if (line[length] == '0' && length == 0)
                     {
@@ -114,7 +112,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
             else if (button.Text != "0")
             {
-                if (IsErrorInExpressionLine() || expression.Value == "0")
+                if (IsErrorInExpressionLine(expression.Value) || expression.Value == "0")
                 {
                     expression.Value = button.Text;
                 }
@@ -131,7 +129,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnDeleteItem_Click(Object sender, EventArgs e)
         {
-            if (IsErrorInExpressionLine())
+            if (IsErrorInExpressionLine(expression.Value))
             {
                 expression.Value = "0";
 
@@ -140,7 +138,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
             int length = expression.Value.Length;
 
-            line = expression.Value;
+            string line = expression.Value;
 
             expression.Value = null;
 
@@ -163,7 +161,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnCalculateExpression_Click(Object sender, EventArgs e)
         {
-            line = expression.Value;
+            string line = expression.Value;
 
             try
             {
@@ -192,7 +190,7 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnSavingResult_Click (Object sender, EventArgs e)
         {
-            if (IsErrorInExpressionLine())
+            if (IsErrorInExpressionLine(expression.Value))
             {
                 return;
             }
@@ -211,56 +209,42 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnOutputOfPreviousResult_Click (Object sender, EventArgs e)
         {
-            List<CalculationResult> calculationResults = repository.GetCalculationResult();
+            List<CalculationResult> results = repository.GetCalculationResult();
 
-            int numberOfElements = calculationResults.Count - 1;
+            Dictionary<int, string> calculationResults = results.ToDictionary(item => item.Id, item => Convert.ToString(item.Result));
 
-            if (IsErrorInExpressionLine())
+            if (calculationResults.Count == 0)
             {
-                expression.Value = Convert.ToString(calculationResults[numberOfElements].Result);
-
-                return;
+                expression.Value = "0";
             }
 
-            else if (idResult.Value == "null")
+            else
             {
-                try
-                {
-                    expression.Value = Convert.ToString(calculationResults[numberOfElements].Result);
+                int lastId = calculationResults.Last().Key;
 
-                    idResult.Value = Convert.ToString(numberOfElements);
+                if (idResult.Value == "null")
+                {
+                    expression.Value = calculationResults[lastId];
+
+                    idResult.Value = Convert.ToString(lastId);
                 }
 
-                catch (Exception)
-                {
-                    expression.Value = "0";
-                }
-
-            }
-
-            else if (idResult.Value != "null")
-            {
-                try
-                {
-                    int id = Convert.ToInt32(idResult.Value) - 1;
-
-                    expression.Value = Convert.ToString(calculationResults[id].Result);
-
-                    idResult.Value = Convert.ToString(id);
-                }
-
-                catch (Exception)
+                else if (idResult.Value != "null")
                 {
                     int id = Convert.ToInt32(idResult.Value);
 
-                    try
+                    if (calculationResults.ContainsKey(id - 1))
                     {
-                        expression.Value = Convert.ToString(calculationResults[id].Result);
+                        expression.Value = calculationResults[id - 1];
+
+                        idResult.Value = Convert.ToString(id - 1);
                     }
 
-                    catch
+                    else
                     {
-                        expression.Value = "0";
+                        expression.Value = calculationResults[id];
+
+                        idResult.Value = Convert.ToString(id);
                     }
 
                 }
@@ -271,56 +255,42 @@ namespace BUKEP.Student.WebFormsCalculator
 
         protected void btnOutputOfFollowingResult_Click(Object sender, EventArgs e)
         {
-            List<CalculationResult> calculationResults = repository.GetCalculationResult();
+            List<CalculationResult> results = repository.GetCalculationResult();
 
-            int numberOfElements = calculationResults.Count - 1;
+            Dictionary<int, string> calculationResults = results.ToDictionary(item => item.Id, item => Convert.ToString(item.Result));
 
-            if (IsErrorInExpressionLine())
+            if (calculationResults.Count == 0)
             {
-                expression.Value = Convert.ToString(calculationResults[numberOfElements].Result);
-
-                return;
+                expression.Value = "0";
             }
 
-            if (idResult.Value == "null")
+            else
             {
-                try
-                {
-                    expression.Value = Convert.ToString(calculationResults[numberOfElements].Result);
+                int lastId = calculationResults.Last().Key;
 
-                    idResult.Value = Convert.ToString(numberOfElements);
+                if (idResult.Value == "null")
+                {
+                    expression.Value = calculationResults[lastId];
+
+                    idResult.Value = Convert.ToString(lastId);
                 }
 
-                catch (Exception)
-                {
-                    expression.Value = "0";
-                }
-
-            }
-
-            else if (idResult.Value != "null")
-            {
-                try
-                {
-                    int id = Convert.ToInt32(idResult.Value) + 1;
-
-                    expression.Value = Convert.ToString(calculationResults[id].Result);
-
-                    idResult.Value = Convert.ToString(id);
-                }
-
-                catch (Exception)
+                else if (idResult.Value != "null")
                 {
                     int id = Convert.ToInt32(idResult.Value);
 
-                    try
+                    if (calculationResults.ContainsKey(id + 1))
                     {
-                        expression.Value = Convert.ToString(calculationResults[id].Result);
+                        expression.Value = calculationResults[id + 1];
+
+                        idResult.Value = Convert.ToString(id + 1);
                     }
 
-                    catch
+                    else
                     {
-                        expression.Value = "0";
+                        expression.Value = calculationResults[id];
+
+                        idResult.Value = Convert.ToString(id);
                     }
 
                 }
@@ -340,11 +310,11 @@ namespace BUKEP.Student.WebFormsCalculator
         /// Проверяет есть ли в строке текст ошибки.
         /// </summary>
         /// <returns>Значение true, если в строке есть текст ошибки, в противном случае значение false.</returns>
-        private bool IsErrorInExpressionLine()
+        private bool IsErrorInExpressionLine(string expression)
         {
             bool error = false;
 
-            if (expression.Value == "Деление на 0!" || expression.Value == "Ошибка!!!")
+            if (expression == "Деление на 0!" || expression == "Ошибка!!!")
             {
                 error = true;
             }

@@ -63,7 +63,7 @@ namespace BUKEP.Student.Calculator.Data
             {
                 connection.Open();
 
-                string request = "SELECT Id, Result FROM СalculationResults";
+                string request = "SELECT Id, Result FROM СalculationResults ORDER BY Id ASC";
 
                 SqlCommand command = new SqlCommand(request, connection);
 
