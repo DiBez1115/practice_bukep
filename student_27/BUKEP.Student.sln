@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32002.261
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.Calculator", "BUKEP.Student.Calculator\BUKEP.Student.Calculator.csproj", "{DEB520E5-F90B-4E45-ACA1-770B23C90087}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.WindowsCalculator", "BUKEP.Student.WindowsCalculator\BUKEP.Student.WindowsCalculator.csproj", "{5F5D5457-F792-48E3-8296-40AC6F2E5DD8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.WebFormsCalculator", "BUKEP.Student.WebFormsCalculator\BUKEP.Student.WebFormsCalculator.csproj", "{C01A2B83-31B7-43EA-B432-8CD94601AB2D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.Calculator.Data", "BUKEP.Student.Calculator.Data\BUKEP.Student.Calculator.Data.csproj", "{D6FAD30E-82C0-46B5-B448-0D85F047AC34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C01A2B83-31B7-43EA-B432-8CD94601AB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C01A2B83-31B7-43EA-B432-8CD94601AB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C01A2B83-31B7-43EA-B432-8CD94601AB2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6FAD30E-82C0-46B5-B448-0D85F047AC34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6FAD30E-82C0-46B5-B448-0D85F047AC34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6FAD30E-82C0-46B5-B448-0D85F047AC34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6FAD30E-82C0-46B5-B448-0D85F047AC34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
