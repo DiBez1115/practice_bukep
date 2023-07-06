@@ -18,7 +18,6 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
         {
             while (true)
             {
-
                 Console.Write("Введите выражение: ");
                 Console.WriteLine(ReversePolishNotation.Calculate(Console.ReadLine()));
             }
@@ -70,13 +69,13 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
         {
             switch (priority)
             {
-                case '(': return 0;
+                case '(': return 1;
                 case ')': return 1;
                 case '+': return 2;
-                case '-': return 3;
-                case '*': return 4;
-                case '/': return 4;
-                default: return 6;
+                case '-': return 2;
+                case '*': return 3;
+                case '/': return 3;
+                default: return 4;
             }
         }
 
@@ -161,7 +160,7 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
         /// </summary>
         /// <param name="input">Строка с выражением</param> 
         /// <param name="result">Число - результат вычисления</param> 
-        /// <param name="temp">Стэк для временного решения</param> 
+        /// <param name="tempCount">Стэк для временного решения</param> 
         /// <param name="valueOne">Переменная - первое число</param> 
         /// <param name="valueTwo">Переменная - второе число</param> 
         /// <returns>
@@ -170,7 +169,7 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
         static private double Counting(string input)
         {
             double result = 0;
-            Stack<double> temp = new Stack<double>();
+            Stack<double> tempCount = new Stack<double>();
 
             for (int iteration = 0; iteration < input.Length; iteration++)
             {
@@ -184,13 +183,13 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         iteration++;
                         if (iteration == input.Length) break;
                     }
-                    temp.Push(double.Parse(valueOne));
+                    tempCount.Push(double.Parse(valueOne));
                     iteration--;
                 }
                 else if (IsOperator(input[iteration]))
                 {
-                    double valueOne = temp.Pop();
-                    double valueTwo = temp.Pop();
+                    double valueOne = tempCount.Pop();
+                    double valueTwo = tempCount.Pop();
 
                     switch (input[iteration])
                     {
@@ -199,10 +198,10 @@ namespace BUKEP.Student.CalculationOfDegeneracyulator
                         case '*': result = valueTwo * valueOne; break;
                         case '/': result = valueTwo / valueOne; break;
                     }
-                    temp.Push(result);
+                    tempCount.Push(result);
                 }
             }
-            return temp.Peek();
+            return tempCount.Peek();
         }
     }
 }
