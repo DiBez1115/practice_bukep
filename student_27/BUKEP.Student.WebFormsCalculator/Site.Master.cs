@@ -8,10 +8,6 @@ using System.Web.UI.WebControls;
 namespace BUKEP.Student.WebFormsCalculator
 {
     public partial class SiteMaster : MasterPage
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
-
-        }
+    { 
     }
 }

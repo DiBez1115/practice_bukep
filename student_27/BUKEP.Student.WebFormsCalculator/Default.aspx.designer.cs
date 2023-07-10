@@ -15,6 +15,15 @@ namespace BUKEP.Student.WebFormsCalculator
     {
 
         /// <summary>
+        /// idResult элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden idResult;
+
+        /// <summary>
         /// expression элемент управления.
         /// </summary>
         /// <remarks>
@@ -24,192 +33,228 @@ namespace BUKEP.Student.WebFormsCalculator
         protected global::System.Web.UI.HtmlControls.HtmlInputText expression;
 
         /// <summary>
-        /// Button1 элемент управления.
+        /// ButtonToSaveResults элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button1;
+        protected global::System.Web.UI.WebControls.Button ButtonToSaveResults;
 
         /// <summary>
-        /// Button2 элемент управления.
+        /// ButtonForPreviousResult элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button2;
+        protected global::System.Web.UI.WebControls.Button ButtonForPreviousResult;
 
         /// <summary>
-        /// Button3 элемент управления.
+        /// ButtonForFollowingResult элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button3;
+        protected global::System.Web.UI.WebControls.Button ButtonForFollowingResult;
 
         /// <summary>
-        /// Button4 элемент управления.
+        /// buttonToClearAllCalculationResults элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button4;
+        protected global::System.Web.UI.WebControls.Button buttonToClearAllCalculationResults;
 
         /// <summary>
-        /// Button5 элемент управления.
+        /// ClearingButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button5;
+        protected global::System.Web.UI.WebControls.Button ClearingButton;
 
         /// <summary>
-        /// Button6 элемент управления.
+        /// ButtonDeleteItem элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button6;
+        protected global::System.Web.UI.WebControls.Button ButtonDeleteItem;
 
         /// <summary>
-        /// Button7 элемент управления.
+        /// ButtonOfDegree элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button7;
+        protected global::System.Web.UI.WebControls.Button ButtonOfDegree;
 
         /// <summary>
-        /// Button8 элемент управления.
+        /// OpenBracketButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button8;
+        protected global::System.Web.UI.WebControls.Button OpenBracketButton;
 
         /// <summary>
-        /// Button9 элемент управления.
+        /// ClosingBracketButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button9;
+        protected global::System.Web.UI.WebControls.Button ClosingBracketButton;
 
         /// <summary>
-        /// Button10 элемент управления.
+        /// DividingButton элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button10;
+        protected global::System.Web.UI.WebControls.Button DividingButton;
 
         /// <summary>
-        /// Button11 элемент управления.
+        /// ButtonWithNumberSeven элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button11;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberSeven;
 
         /// <summary>
-        /// Button12 элемент управления.
+        /// ButtonWithNumberEight элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button12;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberEight;
 
         /// <summary>
-        /// Button13 элемент управления.
+        /// ButtonWithNumberNine элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button13;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberNine;
 
         /// <summary>
-        /// Button14 элемент управления.
+        /// ButtonMultiply элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button14;
+        protected global::System.Web.UI.WebControls.Button ButtonMultiply;
 
         /// <summary>
-        /// Button15 элемент управления.
+        /// ButtonWithNumberSix элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button15;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberSix;
 
         /// <summary>
-        /// Button16 элемент управления.
+        /// ButtonWithNumberFive элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button16;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberFive;
 
         /// <summary>
-        /// Button17 элемент управления.
+        /// ButtonWithNumberFour элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button17;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberFour;
 
         /// <summary>
-        /// Button18 элемент управления.
+        /// ButtonSubtractions элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button18;
+        protected global::System.Web.UI.WebControls.Button ButtonSubtractions;
 
         /// <summary>
-        /// Button19 элемент управления.
+        /// ButtonWithNumberThree элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button19;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberThree;
 
         /// <summary>
-        /// Button20 элемент управления.
+        /// ButtonWithNumberTwo элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button20;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberTwo;
 
         /// <summary>
-        /// Button21 элемент управления.
+        /// ButtonWithNumberOne элемент управления.
         /// </summary>
         /// <remarks>
         /// Автоматически созданное поле.
         /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button21;
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumberOne;
+
+        /// <summary>
+        /// ButtonAddingUp элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonAddingUp;
+
+        /// <summary>
+        /// ButtonWithNumber элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonWithNumber;
+
+        /// <summary>
+        /// ButtonWithComma элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonWithComma;
+
+        /// <summary>
+        /// ButtonEqual элемент управления.
+        /// </summary>
+        /// <remarks>
+        /// Автоматически созданное поле.
+        /// Для изменения переместите объявление поля из файла конструктора в файл кода программной части.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button ButtonEqual;
     }
 }
