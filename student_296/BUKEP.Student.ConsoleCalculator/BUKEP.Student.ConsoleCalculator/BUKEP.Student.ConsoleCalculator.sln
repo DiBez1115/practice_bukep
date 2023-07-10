@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.33529.622
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUKEP.Student.ConsoleCalculator", "BUKEP.Student.ConsoleCalculator\BUKEP.Student.ConsoleCalculator.csproj", "{ABCFBE98-9879-4C2E-8C52-F269418F777C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{ABCFBE98-9879-4C2E-8C52-F269418F777C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABCFBE98-9879-4C2E-8C52-F269418F777C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABCFBE98-9879-4C2E-8C52-F269418F777C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABCFBE98-9879-4C2E-8C52-F269418F777C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E8D65D6A-5A73-40BA-A540-F711B21F3776}
+	EndGlobalSection
+EndGlobal
